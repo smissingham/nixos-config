@@ -1,33 +1,27 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-	
-	# START WIFI SUPPORT
-
-	boot.kernelPackages = pkgs.linuxPackages_6_10;
-	boot.kernelModules = [ "ath11k" "ath11k_pci" ];
-	
-	hardware.enableAllFirmware = true;
-	
-	nixpkgs.config.allowUnfree = true;
-	
-	hardware.firmware = with pkgs; [
-		linux-firmware
-	];
-	
-	# Option 1: Using NetworkManager
-	networking.networkmanager.enable = true;
-
-	# END WIFI SUPPORT
-
 	imports = 
 	[
 		./nvidia.nix
-		#./driver-wifi.nix
+		./de.nix
 	];
 
+	# TOP LEVEL CONFIG
+	
+	boot.kernelPackages = pkgs.linuxPackages_6_10;
+	#boot.kernelModules = [ "ath11k" "ath11k_pci" "ath12k" "ath12k_pci" ];
+	hardware.enableAllFirmware = true;
+	nixpkgs.config.allowUnfree = true;
+	networking.networkmanager.enable = true;
+	#hardware.firmware = with pkgs; [
+	#	linux-firmware
+	#];
+
+	# Extra programs that can't/should'nt install via systemPackages
 	services.flatpak.enable = true;
-	programs.steam.enable = true;
+	programs.steam.enable = true; # so far, this is the best option. Flathub version less so, systemPackage version sucks
+	programs.firefox.enable = true;
 
 	environment.systemPackages = with pkgs; [
 		
@@ -36,27 +30,23 @@
 		pciutils
 		wget
 
-		# General Purpose Apps
+		# Media Apps
 		spotify
-		obsidian
+
+		# Commumincation Apps
 		telegram-desktop
 		discord
 
-		# General Productivity
+		# Productivity Apps
+		obsidian
 		libreoffice
-		drive #Google Drive Sync
-
-		# Work related
-		onedrive
-
-		# Support PWAsForFirefox Extension
-		pkgs.firefoxpwa
+		drive # Google Drive Sync
 
 		# Developer applications
 		git
-		jetbrains-toolbox
-		#jetbrains.dataspell
-		#jetbrains.idea-ultimate
+		vscode
+		# note, jetbrains products via systemPackages don't work. Use toolbox instead
+		jetbrains-toolbox 
 
 		# SDKs
 		(python311.withPackages (ps: with ps; [
@@ -70,10 +60,5 @@
 			scikitlearn
 		]))
 	];
-
-	programs.firefox = {
-		enable = true;
-		package = pkgs.firefox;
-		nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
-	};
+	
 }
