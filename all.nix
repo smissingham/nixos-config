@@ -8,12 +8,13 @@
 	];
 
 	# TOP LEVEL CONFIG
-	
-	boot.kernelPackages = pkgs.linuxPackages_6_10;
-	#boot.kernelModules = [ "ath11k" "ath11k_pci" "ath12k" "ath12k_pci" ];
-	hardware.enableAllFirmware = true;
 	nixpkgs.config.allowUnfree = true;
-	networking.networkmanager.enable = true;
+	
+	# Wi-Fi support attempts
+	#boot.kernelPackages = pkgs.linuxPackages_6_10;
+	#boot.kernelModules = [ "ath11k" "ath11k_pci" "ath12k" "ath12k_pci" ];
+	#hardware.enableAllFirmware = true;
+	#networking.networkmanager.enable = true;
 	#hardware.firmware = with pkgs; [
 	#	linux-firmware
 	#];
@@ -57,7 +58,7 @@
 			polars
 			duckdb
 			statsmodels
-			scikitlearn
+			scikitlearne
 		]))
 	];
 	

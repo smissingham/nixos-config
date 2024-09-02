@@ -43,6 +43,9 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
 
+
+    ## CUSTOM DRIVER VERSIONS IN TESTING ##
+
     # Runs Factorio, firefox crashing
     # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #   version = "555.58.02";
