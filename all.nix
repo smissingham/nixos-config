@@ -5,7 +5,6 @@
 	# START WIFI SUPPORT
 
 	boot.kernelPackages = pkgs.linuxPackages_6_10;
-	
 	boot.kernelModules = [ "ath11k" "ath11k_pci" ];
 	
 	hardware.enableAllFirmware = true;
@@ -24,9 +23,11 @@
 	imports = 
 	[
 		./nvidia.nix
+		#./driver-wifi.nix
 	];
 
 	services.flatpak.enable = true;
+	programs.steam.enable = true;
 
 	environment.systemPackages = with pkgs; [
 		
@@ -36,7 +37,6 @@
 		wget
 
 		# General Purpose Apps
-		#steam # installing on flathub instead
 		spotify
 		obsidian
 		telegram-desktop

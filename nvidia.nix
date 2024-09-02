@@ -2,7 +2,6 @@
 
 {
 
-
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -10,6 +9,8 @@
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
+
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   hardware.nvidia = {
 
@@ -20,7 +21,7 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead 
     # of just the bare essentials.
-    powerManagement.enable = true;
+    powerManagement.enable = false;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
@@ -42,14 +43,53 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
 
-    # To set a custom driver
+    # Runs Factorio, firefox crashing
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "555.58.02";
+    #   sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    #   settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    #   persistencedSha256 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    # };
+
+    # Stable games, firefox crashing
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "555.58";
+    #   sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+    #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+    #   persistencedSha256 = "";
+    # };
+
+    # firefox working, factorio flickering and black-screening
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "555.58.02";
-      sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-      sha256_aarch64 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-      openSha256 = "sha256-8hyRiGB+m2hL3c9MDA/Pon+Xl6E788MZ50WrrAGUVuY=";
-      settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      persistencedSha256 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+     version = "550.100";
+     sha256_64bit = "sha256-imtfsoe/EfUFZzR4S9pkwQZKCcKqefayJewPtW0jgC0=";
+     settingsSha256 = "sha256-cDxhzZCDLtXOas5OlodNYGIuscpKmIGyvhC/kAQaxLc=";
+     persistencedSha256 = "";
     };
+       
+    #  doesn't build, vulkan issue
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "560.35.03";
+    #  sha256_64bit = "sha256-8pMskvrdQ8WyNBvkU/xPc/CtcYXCa7ekP73oGuKfH+M=";
+    #  settingsSha256 = "";
+    #  persistencedSha256 = "";
+    #};
+
+    # Doesn't build, vulkan issue
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "560.31.02";
+    #  sha256_64bit = "sha256-0cwgejoFsefl2M6jdWZC+CKc58CqOXDjSi4saVPNKY0=";
+    #  settingsSha256 = "sha256-A3SzGAW4vR2uxT1Cv+Pn+Sbm9lLF5a/DGzlnPhxVvmE=";
+    #  persistencedSha256 = "";
+    #};
+
+    #  doesn't build, vulkan issue
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "560.28.03";
+    #  sha256_64bit = "sha256-martv18vngYBJw1IFUCAaYr+uc65KtlHAMdLMdtQJ+Y=";
+    #  settingsSha256 = "sha256-b4nhUMCzZc3VANnNb0rmcEH6H7SK2D5eZIplgPV59c8=";
+    #  persistencedSha256 = "";
+    #};
+
   };
 }
