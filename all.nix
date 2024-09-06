@@ -16,6 +16,7 @@ in {
     ./homemanager.nix
     ./nvidia.nix
     ./de.nix
+    ./webcam.nix
   ];
 
   # TOP LEVEL CONFIG
@@ -64,10 +65,10 @@ in {
     podman-desktop
 
     # manage webcam settings
-    webcamoid
+    #webcamoid
 
     # create virtual webcams
-    pkgs.linuxKernel.packages.linux_zen.akvcam
+    #pkgs.linuxKernel.packages.linux_zen.akvcam
 
     # Developer applications
     git
