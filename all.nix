@@ -6,6 +6,11 @@
   ...
 }: let
   envVariables = lib.importTOML ./env.toml;
+  unstable =
+    import
+    (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixos-unstable)
+    # reuse the current configuration
+    {config = config.nixpkgs.config;};
 in {
   imports = [
     ./homemanager.nix
@@ -59,6 +64,7 @@ in {
     # Developer applications
     git
     vscode
+    unstable.zed-editor
     # note, jetbrains products via systemPackages don't work. Use toolbox instead
     jetbrains-toolbox
 
