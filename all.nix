@@ -58,7 +58,7 @@ in {
 
     # Developer applications
     git
-    vscode
+    #    vscode
     # note, jetbrains products via systemPackages don't work. Use toolbox instead
     jetbrains-toolbox
 
