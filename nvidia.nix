@@ -43,7 +43,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
 
     ## CUSTOM DRIVER VERSIONS IN TESTING ##
 
@@ -105,11 +105,11 @@
     # };
 
     # Trialling older driver version 535 for better stability
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "535.183.01";
-      sha256_64bit = "sha256-9nB6+92pQH48vC5RKOYLy82/AvrimVjHL6+11AXouIM=";
-      settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
-      persistencedSha256 = "";
-    };
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "535.183.01";
+    #  sha256_64bit = "sha256-9nB6+92pQH48vC5RKOYLy82/AvrimVjHL6+11AXouIM=";
+    #  settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
+    #  persistencedSha256 = "";
+    #};
   };
 }
