@@ -47,38 +47,6 @@
 
     ## CUSTOM DRIVER VERSIONS IN TESTING ##
 
-    # Runs Factorio, firefox crashing
-    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #   version = "555.58.02";
-    #   sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-    #   settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-    #   persistencedSha256 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-    # };
-
-    # Stable games, firefox crashing
-    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    #   version = "555.58";
-    #   sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
-    #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-    #   persistencedSha256 = "";
-    # };
-
-    # Currently testing, should be latest update of stable driver version 550
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "550.107.02";
-      sha256_64bit = "sha256-+XwcpN8wYCjYjHrtYx+oBhtVxXxMI02FO1ddjM5sAWg=";
-      settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
-      persistencedSha256 = "";
-    };
-
-    # # firefox working, factorio flickering and black-screening
-    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-    # version = "550.100";
-    # sha256_64bit = "sha256-imtfsoe/EfUFZzR4S9pkwQZKCcKqefayJewPtW0jgC0=";
-    # settingsSha256 = "sha256-cDxhzZCDLtXOas5OlodNYGIuscpKmIGyvhC/kAQaxLc=";
-    # persistencedSha256 = "";
-    # };
-
     #  doesn't build, vulkan issue
     #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #  version = "560.35.03";
@@ -102,5 +70,46 @@
     #  settingsSha256 = "sha256-b4nhUMCzZc3VANnNb0rmcEH6H7SK2D5eZIplgPV59c8=";
     #  persistencedSha256 = "";
     #};
+
+    # Runs Factorio, firefox crashing
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "555.58.02";
+    #   sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    #   settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    #   persistencedSha256 = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    # };
+
+    # Stable games, firefox crashing
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "555.58";
+    #   sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+    #   settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+    #   persistencedSha256 = "";
+    # };
+
+    # Currently testing, should be latest update of stable driver version 550
+    # Best so far...
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #   version = "550.107.02";
+    #   sha256_64bit = "sha256-+XwcpN8wYCjYjHrtYx+oBhtVxXxMI02FO1ddjM5sAWg=";
+    #   settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
+    #   persistencedSha256 = "";
+    # };
+
+    # # firefox working, factorio flickering and black-screening
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    # version = "550.100";
+    # sha256_64bit = "sha256-imtfsoe/EfUFZzR4S9pkwQZKCcKqefayJewPtW0jgC0=";
+    # settingsSha256 = "sha256-cDxhzZCDLtXOas5OlodNYGIuscpKmIGyvhC/kAQaxLc=";
+    # persistencedSha256 = "";
+    # };
+
+    # Trialling older driver version 535 for better stability
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "535.183.01";
+      sha256_64bit = "sha256-9nB6+92pQH48vC5RKOYLy82/AvrimVjHL6+11AXouIM=";
+      settingsSha256 = "sha256-WFZhQZB6zL9d5MUChl2kCKQ1q9SgD0JlP4CMXEwp2jE=";
+      persistencedSha256 = "";
+    };
   };
 }
