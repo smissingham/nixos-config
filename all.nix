@@ -20,7 +20,7 @@ in {
 
   # TOP LEVEL CONFIG
   nixpkgs.config.allowUnfree = true;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  #boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # NETWORKING
   networking.wireless = {
@@ -62,8 +62,12 @@ in {
     # Sysadmin Apps
     podman
     podman-desktop
+
+    # manage webcam settings
     webcamoid
-    #akvcam
+
+    # create virtual webcams
+    pkgs.linuxKernel.packages.linux_zen.akvcam
 
     # Developer applications
     git
