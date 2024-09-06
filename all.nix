@@ -53,6 +53,7 @@ in {
     google-drive-ocamlfuse
 
     # Sysadmin Apps
+    podman
     podman-desktop
 
     # Developer applications
