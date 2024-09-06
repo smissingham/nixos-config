@@ -36,6 +36,7 @@ in {
   services.flatpak.enable = true;
   programs.steam.enable = true; # so far, this is the best option. Flathub version less so, systemPackage version sucks
   programs.firefox.enable = true;
+  programs.dconf.enable = true; # https://github.com/NixOS/nixpkgs/issues/207339#issuecomment-1747101887
 
   environment.systemPackages = with pkgs; [
     # System Utils
