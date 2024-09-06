@@ -61,6 +61,7 @@ in {
     # Sysadmin Apps
     podman
     podman-desktop
+    webcamoid
 
     # Developer applications
     git
