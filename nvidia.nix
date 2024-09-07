@@ -73,7 +73,7 @@
     #  persistencedSha256 = "";
     #};
 
-    # Runs Factorio, firefox crashing
+    # 2024-09-07 Best So Far
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "555.58.02";
       sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
@@ -90,7 +90,7 @@
     # };
 
     # Currently testing, should be latest update of stable driver version 550
-    # Best so far...
+    # 2024-09-01 Best so far...
     # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
     #   version = "550.107.02";
     #   sha256_64bit = "sha256-+XwcpN8wYCjYjHrtYx+oBhtVxXxMI02FO1ddjM5sAWg=";

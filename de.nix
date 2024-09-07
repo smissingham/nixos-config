@@ -26,6 +26,7 @@
 
     #pkgs.kdePackages.kmail
     #pkgs.kdePackages.kmail-account-wizard
+    pkgs.kdePackages.kcalc
     pkgs.kdePackages.partitionmanager
   ];
 }
