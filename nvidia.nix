@@ -4,20 +4,22 @@
   pkgs,
   modulesPath,
   ...
-}: let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-in {
+}:
+# let
+#   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+#     export __NV_PRIME_RENDER_OFFLOAD=1
+#     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+#     export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#     export __VK_LAYER_NV_optimus=NVIDIA_only
+#     exec -a "$0" "$@"
+#   '';
+# in
+{
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    #driSupport = true;
+    #driSupport32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -52,16 +54,16 @@ in {
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    prime = {
-      # Make sure to use the correct Bus ID values for your system!
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
+    # prime = {
+    #   # Make sure to use the correct Bus ID values for your system!
+    #   offload = {
+    #     enable = true;
+    #     enableOffloadCmd = true;
+    #   };
 
-      intelBusId = "PCI:00:02:0";
-      nvidiaBusId = "PCI:01:00:0";
-    };
+    #   intelBusId = "PCI:00:02:0";
+    #   nvidiaBusId = "PCI:01:00:0";
+    # };
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
