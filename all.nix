@@ -40,7 +40,30 @@ in {
   programs.firefox.enable = true;
   programs.dconf.enable = true; # https://github.com/NixOS/nixpkgs/issues/207339#issuecomment-1747101887
 
+  # Podman container config: https://nixos.wiki/wiki/Podman
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      enableNvidia = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
+    # Container management apps
+    dive # look into docker image layers
+    podman-tui # status of containers in the terminal
+    #docker-compose # start group of containers for dev
+    podman-compose # start group of containers for dev
+
     # System Utils
     git
     htop
@@ -59,11 +82,6 @@ in {
     libreoffice
     obsidian
     google-drive-ocamlfuse
-
-    # Sysadmin Apps
-    podman
-    podman-compose
-    #podman-desktop # outdated. Use new version from flathub
 
     # create virtual webcams
     #pkgs.linuxKernel.packages.linux_zen.akvcam
