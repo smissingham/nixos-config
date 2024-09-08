@@ -39,4 +39,8 @@
       exec-opts = ["native.cgroupdriver=cgroupfs"];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ]
 }
