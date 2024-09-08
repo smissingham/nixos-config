@@ -63,6 +63,7 @@ in {
     podman-tui # status of containers in the terminal
     #docker-compose # start group of containers for dev
     podman-compose # start group of containers for dev
+    nvidia-container-toolkit # nvidia gpu support in containers
 
     # System Utils
     git
