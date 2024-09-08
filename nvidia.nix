@@ -4,10 +4,20 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}: let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in {
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -23,11 +33,11 @@
     # Enable this if you have graphical corruption issues or application crashes after waking
     # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
     # of just the bare essentials.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
 
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
 
     # Use the NVidia open source kernel module (not to be confused with the
     # independent third-party "nouveau" open source driver).
@@ -41,6 +51,17 @@
     # Enable the Nvidia settings menu,
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
+
+    prime = {
+      # Make sure to use the correct Bus ID values for your system!
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      intelBusId = "PCI:00:02:0";
+      nvidiaBusId = "PCI:01:00:0";
+    };
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
