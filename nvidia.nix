@@ -33,6 +33,9 @@
     cudaPackages.cudatoolkit
   ];
 
+  hardware.nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.mount-nvidia-executables = true;
+
   hardware.nvidia = {
     # Modesetting is required.
     modesetting.enable = true;
