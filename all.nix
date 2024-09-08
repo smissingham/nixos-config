@@ -62,10 +62,7 @@ in {
 
     # Sysadmin Apps
     podman
-    podman-desktop
-
-    # manage webcam settings
-    #webcamoid
+    #podman-desktop # outdated. Use new version from flathub
 
     # create virtual webcams
     #pkgs.linuxKernel.packages.linux_zen.akvcam
@@ -73,7 +70,7 @@ in {
     # Developer applications
     git
     vscode
-    unstable.zed-editor
+    # unstable.zed-editor # ironically, terribly slow. Probably just needs better nix support
     # note, jetbrains products via systemPackages don't work. Use toolbox instead
     jetbrains-toolbox
 

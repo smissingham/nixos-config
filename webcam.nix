@@ -8,6 +8,7 @@
   localpkgs,
   ...
 }: let
+  ##### WORK IN PROGRESS, Trying to get vcam working for teams background support #####
   #mypkgs = pkgs.linuxPackages.pkgs;
   configFile = pkgs.writeText "akvcam-configFile" ''
     [Cameras]
