@@ -27,7 +27,7 @@
 
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  #boot.kernelModules = ["nvidia-uvm" "nvidia-smi"];
+  boot.kernelModules = ["nvidia-uvm" "nvidia-smi"];
 
   environment.systemPackages = with pkgs; [
     cudaPackages.cudatoolkit
@@ -72,7 +72,6 @@
     #   intelBusId = "PCI:00:02:0";
     #   nvidiaBusId = "PCI:01:00:0";
     # };
-
 
     ## BUILTIN DRIVE OPTIONS ##
 
