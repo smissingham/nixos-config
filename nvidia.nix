@@ -27,14 +27,14 @@
 
   nixpkgs.config.nvidia.acceptLicense = true;
 
-  boot.kernelModules = ["nvidia-uvm" "nvidia-smi"];
+  #boot.kernelModules = ["nvidia-uvm" "nvidia-smi"];
 
-  environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   cudaPackages.cudatoolkit
+  # ];
 
-  hardware.nvidia-container-toolkit.enable = true;
-  hardware.nvidia-container-toolkit.mount-nvidia-executables = true;
+  #hardware.nvidia-container-toolkit.enable = true;
+  #hardware.nvidia-container-toolkit.mount-nvidia-executables = true;
 
   hardware.nvidia = {
     # Modesetting is required.
