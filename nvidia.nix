@@ -11,7 +11,7 @@
 #     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
 #     export __GLX_VENDOR_LIBRARY_NAME=nvidia
 #     export __VK_LAYER_NV_optimus=NVIDIA_only
-#     exec -a "$0" "$@"
+#     exec "$@"
 #   '';
 # in
 {
@@ -26,6 +26,12 @@
   services.xserver.videoDrivers = ["nvidia"];
 
   nixpkgs.config.nvidia.acceptLicense = true;
+
+  #boot.kernelModules = ["nvidia-uvm" "nvidia-smi"];
+
+  environment.systemPackages = with pkgs; [
+    cudaPackages.cudatoolkit
+  ];
 
   hardware.nvidia = {
     # Modesetting is required.
@@ -54,6 +60,8 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
+    # PRIME modes allow cpu vga to share workload with GPU for sake of power efficiency
+    # Docs: https://nixos.wiki/wiki/Nvidia#Optimus_PRIME_Option_A:_Offload_Mode
     # prime = {
     #   # Make sure to use the correct Bus ID values for your system!
     #   offload = {
@@ -65,12 +73,14 @@
     #   nvidiaBusId = "PCI:01:00:0";
     # };
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+
+    ## BUILTIN DRIVE OPTIONS ##
+
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
     #package = config.boot.kernelPackages.nvidiaPackages.beta; # accentuates flickering issue
     #package = config.boot.kernelPackages.nvidiaPackages.production;
 
-    ## CUSTOM DRIVER VERSIONS IN TESTING ##
+    ## CUSTOM DRIVER VERSIONS ##
 
     #  doesn't build, vulkan issue
     #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
