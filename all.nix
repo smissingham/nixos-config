@@ -62,6 +62,7 @@ in {
 
     # Sysadmin Apps
     podman
+    podman-compose
     #podman-desktop # outdated. Use new version from flathub
 
     # create virtual webcams
