@@ -55,6 +55,7 @@ in {
     # };
     docker = {
       enable = true;
+      enableNvidia = true;
       package = pkgs.docker_25;
       enableOnBoot = true;
       #extraOptions = "--default-runtime=nvidia";
