@@ -17,6 +17,7 @@ in {
     ./nvidia.nix
     ./de.nix
     ./webcam.nix
+    #./docker.nix
   ];
 
   # TOP LEVEL CONFIG
@@ -40,45 +41,14 @@ in {
   programs.firefox.enable = true;
   programs.dconf.enable = true; # https://github.com/NixOS/nixpkgs/issues/207339#issuecomment-1747101887
 
-  # Podman container config: https://nixos.wiki/wiki/Podman
-  # Enable common container config files in /etc/containers
-  #virtualisation.containers.enable = true;
-  # virtualisation = {
-  #   # podman = {
-  #   #   enable = true;
-  #   #   enableNvidia = true;
-  #   #   #extraOptions = "--default-runtime=nvidia";
-  #   #   # Create a `docker` alias for podman, to use it as a drop-in replacement
-  #   #   dockerCompat = true;
-  #   #   # Required for containers under podman-compose to be able to talk to each other.
-  #   #   defaultNetwork.settings.dns_enabled = true;
-  #   # };
-  #   docker = {
-  #     enable = true;
-  #     enableNvidia = true;
-  #     package = pkgs.docker_25;
-  #     enableOnBoot = true;
-  #     #extraOptions = "--default-runtime=nvidia";
-  #     rootless = {
-  #       enable = true;
-  #     };
-  #   };
-  # };
-
   environment.systemPackages = with pkgs; [
-    # Container management apps
-    #dive # look into docker image layers
-    #podman-tui # status of containers in the terminal
-    #docker-compose # start group of containers for dev
-    #podman-compose # start group of containers for dev
-    #unstable.nvidia-container-toolkit # nvidia gpu support in containers
-
     # System Utils
     git
     htop
     pciutils
     wget
     alejandra # nix code formatter
+    veracrypt
 
     # Media Apps
     spotify
@@ -91,9 +61,6 @@ in {
     libreoffice
     obsidian
     google-drive-ocamlfuse
-
-    # create virtual webcams
-    #pkgs.linuxKernel.packages.linux_zen.akvcam
 
     # Developer applications
     git
