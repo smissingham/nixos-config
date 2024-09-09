@@ -48,7 +48,6 @@ in {
     pciutils
     wget
     alejandra # nix code formatter
-    veracrypt
 
     # Media Apps
     spotify
