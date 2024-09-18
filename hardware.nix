@@ -5,6 +5,8 @@
   modulesPath,
   ...
 }: {
+  hardware.bluetooth.enable = true;
+
   # Data Drive Mount
   fileSystems."/home/smissingham/a" = {
     device = "/dev/nvme2n1p1";
