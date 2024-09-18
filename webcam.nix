@@ -22,9 +22,9 @@
     [Formats]
     formats/size = 1
     formats/1/format = YUY2
-    formats/1/width = 640
-    formats/1/height = 480
-    formats/1/fps = 30
+    formats/1/width = 1920
+    formats/1/height = 1080
+    formats/1/fps = 60
 
     [Connections]
     connections/size = 1
