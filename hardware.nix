@@ -6,7 +6,7 @@
   ...
 }: {
   # Data Drive Mount
-  fileSystems."~/a" = {
+  fileSystems."/home/smissingham/a" = {
     device = "/dev/nvme2n1p1";
     fsType = "btrfs";
     options = [
