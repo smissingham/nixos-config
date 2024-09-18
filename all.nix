@@ -13,9 +13,11 @@
     {config = config.nixpkgs.config;};
 in {
   imports = [
+    ./de.nix
+    ./hardware.nix
     ./homemanager.nix
     ./nvidia.nix
-    ./de.nix
+    ./services.nix
     ./webcam.nix
     #./docker.nix
   ];
@@ -67,6 +69,8 @@ in {
     # unstable.zed-editor # ironically, terribly slow. Probably just needs better nix support
     # note, jetbrains products via systemPackages don't work. Use toolbox instead
     jetbrains-toolbox
+    gitkraken
+    bruno
 
     # SDKs
     (python311.withPackages (ps:
