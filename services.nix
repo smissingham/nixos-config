@@ -8,6 +8,12 @@
   localpkgs,
   ...
 }: {
+  ## SYSTEM SERVICES
+
+  services.onedrive.enable = true;
+
+  ## USER SERVICES
+
   systemd.user.services.google-drive = {
     enable = true;
     after = [
