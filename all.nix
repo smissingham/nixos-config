@@ -62,6 +62,7 @@ in {
     libreoffice
     obsidian
     pandoc
+    texliveTeTeX
     google-drive-ocamlfuse
 
     # Developer applications
