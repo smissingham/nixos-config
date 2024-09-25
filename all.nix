@@ -61,6 +61,7 @@ in {
     # Productivity Apps
     libreoffice
     obsidian
+    pandoc
     google-drive-ocamlfuse
 
     # Developer applications
