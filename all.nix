@@ -64,6 +64,7 @@ in {
     pandoc
     texliveTeTeX
     google-drive-ocamlfuse
+    shutter
 
     # Developer applications
     git
