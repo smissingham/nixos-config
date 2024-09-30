@@ -20,8 +20,8 @@
       "network.target"
     ];
     serviceConfig = {
-      ExecStart = "google-drive-ocamlfuse ~/g";
-      ExecStop = "fusermount - u ~/g";
+      ExecStart = "google-drive-ocamlfuse /home/smissingham/g";
+      ExecStop = "fusermount - u /home/smissingham/g";
       Restart = "always";
       Type = "forking";
     };

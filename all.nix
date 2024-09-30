@@ -61,10 +61,10 @@ in {
     # Productivity Apps
     libreoffice
     obsidian
-    pandoc
-    texliveTeTeX
+    pandoc # pdf export support for obsidian
+    texliveTeTeX # pdf export support for obsidian
     google-drive-ocamlfuse
-    shutter
+    shutter # snipping tool
 
     # Developer applications
     git
