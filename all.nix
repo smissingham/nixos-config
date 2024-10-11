@@ -66,7 +66,7 @@ in {
     google-drive-ocamlfuse
     shutter # snipping tool
 
-    vivaldi
+    chromium
 
     # Developer applications
     git
