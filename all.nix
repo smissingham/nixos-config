@@ -66,6 +66,8 @@ in {
     google-drive-ocamlfuse
     shutter # snipping tool
 
+    vivaldi
+
     # Developer applications
     git
     vscode
