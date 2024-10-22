@@ -78,6 +78,7 @@ in {
     bruno
 
     # SDKs
+    # binary installs to /run/current-system/sw/bin/python
     (python311.withPackages (ps:
       with ps; [
         numpy # these two are
