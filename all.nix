@@ -78,6 +78,8 @@ in {
     bruno
 
     # SDKs
+
+    # --- Python ---
     # binary installs to /run/current-system/sw/bin/python
     (python311.withPackages (ps:
       with ps; [
@@ -90,5 +92,9 @@ in {
         statsmodels
         scikitlearn
       ]))
+
+    # --- NodeJS ---
+    nodejs_20
+    corepack_20
   ];
 }
