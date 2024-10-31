@@ -19,7 +19,7 @@ in {
     ./nvidia.nix
     ./services.nix
     ./webcam.nix
-    #./docker.nix
+    ./docker.nix
   ];
 
   # TOP LEVEL CONFIG
