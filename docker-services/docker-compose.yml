@@ -1,0 +1,21 @@
+
+services:
+  factorio:
+    container_name: factorio
+    image: factoriotools/factorio
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+     - "34197:34197/udp"
+     - "27015:27015/tcp"
+    volumes:
+     - ./gameservers/factorio:/factorio
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UPDATE_MODS_ON_START=true
+#      - USERNAME=FactorioUsername
+#      - TOKEN=FactorioToken
+#      - PORT=34198
+#      - PRESET=deathworld
+#      - ADDR=::1

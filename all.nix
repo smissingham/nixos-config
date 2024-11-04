@@ -66,7 +66,9 @@ in {
     google-drive-ocamlfuse
     shutter # snipping tool
 
+    # extra web browsers
     chromium
+    microsoft-edge
 
     # Developer applications
     git
