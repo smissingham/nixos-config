@@ -57,6 +57,7 @@ in {
     # Commumincation Apps
     telegram-desktop
     discord
+    zoom-us
 
     # Productivity Apps
     libreoffice
