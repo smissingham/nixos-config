@@ -1,15 +1,103 @@
 
+networks:
+  public:
+    external: true
+    name: public
+  internal:
+    name: internal
+ 
 services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.11
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    networks:
+      - public
+      - internal
+    command:
+      - --log.level=DEBUG
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.resolver.acme.tlschallenge=true
+      - --certificatesresolvers.resolver.acme.email=${ADMIN_EMAIL}
+      - --certificatesresolvers.resolver.acme.storage=/letsencrypt/acme.json
+    ports:
+      - "443:443"
+      - "8080:8080" # traefik dashboard
+    volumes:
+      - ${APP_DATA}/webservices/letsencrypt:/letsencrypt
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  ollama:
+    container_name: ollama
+    image: ollama/ollama
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    networks:
+      - internal
+    volumes:
+      - ${APP_DATA}/webservices/ollama:/root/.ollama
+    # ports:
+    #   - "11434:11434"
+    # NixOS specific syntax to get GPU support working.
+    # For standard syntax, see: https://docs.docker.com/compose/how-tos/gpu-support/
+    deploy:
+      resources:
+        reservations:
+          devices:
+              - driver: cdi
+                device_ids:
+                  - nvidia.com/gpu=all
+
+  open-webui:
+      container_name: open-webui
+      image: ghcr.io/open-webui/open-webui:main
+      restart: unless-stopped
+      environment:
+        - TZ=${TZ}
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - 'OLLAMA_BASE_URL=http://ollama:11434'
+      networks:
+        - internal
+      volumes:
+        - ${APP_DATA}/webservices/open-webui:/app/backend/data
+      depends_on:
+        - ollama
+      # ports:
+      #   - 3000:8080
+      labels:
+      - traefik.enable=true
+      - traefik.http.routers.whoami.rule=Host(`llm.${ROOT_DOMAIN}`)
+      - traefik.http.routers.worker.tls=true
+      - traefik.http.routers.whoami.entrypoints=websecure
+      - traefik.http.routers.whoami.tls.certresolver=resolver
+      - traefik.http.services.worker.loadbalancer.server.port=8080
+
+
+
+
+# game servers
   factorio:
-    container_name: factorio
     image: factoriotools/factorio
+    container_name: factorio
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     ports:
      - "34197:34197/udp"
      - "27015:27015/tcp"
     volumes:
-     - ./gameservers/factorio:/factorio
+     - ${APP_DATA}/gameservers/factorio:/factorio
     environment:
       - PUID=1000
       - PGID=1000

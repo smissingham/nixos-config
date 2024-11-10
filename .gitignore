@@ -1,2 +1,5 @@
 *.log
 env.toml
+
+/docker-services/appdata
+/docker-services/.env
