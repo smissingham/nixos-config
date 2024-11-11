@@ -58,6 +58,15 @@ services:
               - driver: cdi
                 device_ids:
                   - nvidia.com/gpu=all
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.ollama.rule=Host(`ollama.${ROOT_DOMAIN}`)
+      - traefik.http.routers.ollama.tls=true
+      - traefik.http.routers.ollama.entrypoints=websecure
+      - traefik.http.routers.ollama.tls.certresolver=resolver
+      - traefik.http.services.ollama.loadbalancer.server.port=11434
+      - traefik.http.routers.ollama.middlewares=auth
+      - traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}
 
   open-webui:
       container_name: open-webui
@@ -78,11 +87,11 @@ services:
       #   - 3000:8080
       labels:
       - traefik.enable=true
-      - traefik.http.routers.whoami.rule=Host(`llm.${ROOT_DOMAIN}`)
-      - traefik.http.routers.worker.tls=true
-      - traefik.http.routers.whoami.entrypoints=websecure
-      - traefik.http.routers.whoami.tls.certresolver=resolver
-      - traefik.http.services.worker.loadbalancer.server.port=8080
+      - traefik.http.routers.openwebui.rule=Host(`llm.${ROOT_DOMAIN}`)
+      - traefik.http.routers.openwebui.tls=true
+      - traefik.http.routers.openwebui.entrypoints=websecure
+      - traefik.http.routers.openwebui.tls.certresolver=resolver
+      - traefik.http.services.openwebui.loadbalancer.server.port=8080
 
 
 
