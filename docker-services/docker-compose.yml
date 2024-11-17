@@ -60,13 +60,13 @@ services:
                   - nvidia.com/gpu=all
     labels:
       - traefik.enable=true
-      - traefik.http.routers.ollama.rule=Host(`ollama.${ROOT_DOMAIN}`)
+      - traefik.http.routers.ollama.rule=Host(`${SECRET_OLLAMA_SUBDOMAIN}.${ROOT_DOMAIN}`)
       - traefik.http.routers.ollama.tls=true
       - traefik.http.routers.ollama.entrypoints=websecure
       - traefik.http.routers.ollama.tls.certresolver=resolver
       - traefik.http.services.ollama.loadbalancer.server.port=11434
-      - traefik.http.routers.ollama.middlewares=auth
-      - traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}
+      #- traefik.http.routers.ollama.middlewares=auth
+      #- traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}
 
   open-webui:
       container_name: open-webui
@@ -92,9 +92,6 @@ services:
       - traefik.http.routers.openwebui.entrypoints=websecure
       - traefik.http.routers.openwebui.tls.certresolver=resolver
       - traefik.http.services.openwebui.loadbalancer.server.port=8080
-
-
-
 
 # game servers
   factorio:

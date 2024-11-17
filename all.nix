@@ -11,6 +11,12 @@
     (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixos-unstable)
     # reuse the current configuration
     {config = config.nixpkgs.config;};
+  latest-beta =
+    # 24.11
+    import
+    (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/refs/tags/24.11-beta.tar.gz)
+    # reuse the current configuration
+    {config = config.nixpkgs.config;};
 in {
   imports = [
     ./de.nix
@@ -74,7 +80,7 @@ in {
     # Developer applications
     git
     vscode
-    # unstable.zed-editor # ironically, terribly slow. Probably just needs better nix support
+    latest-beta.zed-editor # ironically, terribly slow. Probably just needs better nix support
     # note, jetbrains products via systemPackages don't work. Use toolbox instead
     jetbrains-toolbox
     gitkraken
