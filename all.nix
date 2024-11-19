@@ -90,7 +90,7 @@ in {
 
     # --- Python ---
     # binary installs to /run/current-system/sw/bin/python
-    (python311.withPackages (ps:
+    (python312.withPackages (ps:
       with ps; [
         numpy # these two are
         scipy # probably redundant to pandas
@@ -102,7 +102,6 @@ in {
         scikitlearn
 
         openpyxl
-        pip
       ]))
 
     # --- NodeJS ---
