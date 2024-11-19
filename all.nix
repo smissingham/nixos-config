@@ -100,6 +100,8 @@ in {
         duckdb
         statsmodels
         scikitlearn
+
+        openpyxl
       ]))
 
     # --- NodeJS ---

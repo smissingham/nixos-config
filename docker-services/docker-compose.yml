@@ -1,11 +1,10 @@
-
 networks:
   public:
     external: true
     name: public
   internal:
     name: internal
- 
+
 services:
   traefik:
     container_name: traefik
@@ -39,25 +38,28 @@ services:
     container_name: ollama
     image: ollama/ollama
     restart: unless-stopped
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
+      - OLLAMA_KEEP_ALIVE=24h
     networks:
       - internal
     volumes:
       - ${APP_DATA}/webservices/ollama:/root/.ollama
-    # ports:
-    #   - "11434:11434"
+    ports:
+      - "11434:11434"
     # NixOS specific syntax to get GPU support working.
     # For standard syntax, see: https://docs.docker.com/compose/how-tos/gpu-support/
     deploy:
       resources:
         reservations:
           devices:
-              - driver: cdi
-                device_ids:
-                  - nvidia.com/gpu=all
+            - driver: cdi
+              device_ids:
+                - nvidia.com/gpu=all
     labels:
       - traefik.enable=true
       - traefik.http.routers.ollama.rule=Host(`${SECRET_OLLAMA_SUBDOMAIN}.${ROOT_DOMAIN}`)
@@ -69,23 +71,23 @@ services:
       #- traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}
 
   open-webui:
-      container_name: open-webui
-      image: ghcr.io/open-webui/open-webui:main
-      restart: unless-stopped
-      environment:
-        - TZ=${TZ}
-        - PUID=${PUID}
-        - PGID=${PGID}
-        - 'OLLAMA_BASE_URL=http://ollama:11434'
-      networks:
-        - internal
-      volumes:
-        - ${APP_DATA}/webservices/open-webui:/app/backend/data
-      depends_on:
-        - ollama
-      # ports:
-      #   - 3000:8080
-      labels:
+    container_name: open-webui
+    image: ghcr.io/open-webui/open-webui:main
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - "OLLAMA_BASE_URL=http://ollama:11434"
+    networks:
+      - internal
+    volumes:
+      - ${APP_DATA}/webservices/open-webui:/app/backend/data
+    depends_on:
+      - ollama
+    # ports:
+    #   - 3000:8080
+    labels:
       - traefik.enable=true
       - traefik.http.routers.openwebui.rule=Host(`llm.${ROOT_DOMAIN}`)
       - traefik.http.routers.openwebui.tls=true
@@ -93,17 +95,18 @@ services:
       - traefik.http.routers.openwebui.tls.certresolver=resolver
       - traefik.http.services.openwebui.loadbalancer.server.port=8080
 
-# game servers
+  # game servers
   factorio:
     image: factoriotools/factorio
     container_name: factorio
+    restart: unless-stopped
     stdin_open: true # docker run -i
-    tty: true        # docker run -t
+    tty: true # docker run -t
     ports:
-     - "34197:34197/udp"
-     - "27015:27015/tcp"
+      - "34197:34197/udp"
+      - "27015:27015/tcp"
     volumes:
-     - ${APP_DATA}/gameservers/factorio:/factorio
+      - ${APP_DATA}/gameservers/factorio:/factorio
     environment:
       - PUID=1000
       - PGID=1000
