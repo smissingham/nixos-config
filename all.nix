@@ -101,7 +101,8 @@ in {
         scikitlearn
 
         openpyxl # pandas xlsx reader
-        xlsx2csv # polars xlsx reader
+        xlsx2csv # polars xlsx reader-
+        pyarrow # polars pivot
 
         pip
         jupyter
