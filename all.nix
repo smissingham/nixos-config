@@ -110,6 +110,11 @@ in {
         ipykernel
         nbconvert
         nbformat
+
+        # visualization
+        plotly
+        matplotlib
+        seaborn
       ]))
 
     # --- NodeJS ---
