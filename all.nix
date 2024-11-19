@@ -90,11 +90,10 @@ in {
 
     # --- Python ---
     # binary installs to /run/current-system/sw/bin/python
-    (python312.withPackages (ps:
+    (python311.withPackages (ps:
       with ps; [
         numpy # these two are
         scipy # probably redundant to pandas
-        jupyterlab
         pandas
         polars
         duckdb
@@ -103,7 +102,12 @@ in {
 
         openpyxl
 
-        pip # environment is readonly, pip only for reading what's installed
+        pip
+        jupyter
+        jupyterlab
+        ipykernel
+        nbconvert
+        nbformat
       ]))
 
     # --- NodeJS ---
