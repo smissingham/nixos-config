@@ -102,6 +102,7 @@ in {
         scikitlearn
 
         openpyxl
+        pip
       ]))
 
     # --- NodeJS ---
