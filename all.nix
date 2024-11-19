@@ -100,7 +100,8 @@ in {
         statsmodels
         scikitlearn
 
-        openpyxl
+        openpyxl # pandas xlsx reader
+        xlsx2csv # polars xlsx reader
 
         pip
         jupyter
