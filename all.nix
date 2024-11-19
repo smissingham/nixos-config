@@ -102,6 +102,8 @@ in {
         scikitlearn
 
         openpyxl
+
+        pip # environment is readonly, pip only for reading what's installed
       ]))
 
     # --- NodeJS ---
