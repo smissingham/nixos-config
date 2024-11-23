@@ -66,7 +66,6 @@ in {
     zoom-us
 
     # Productivity Apps
-    protonmail-desktop
     libreoffice
     obsidian
     pandoc # pdf export support for obsidian
