@@ -14,20 +14,15 @@
 
   ## USER SERVICES
 
-  systemd.user.services.google-drive = {
-    enable = true;
-    after = [
-      "network.target"
-    ];
+  systemd.user.services.rclone-proton-drive = {
+    description = "rclone sync proton drive";
     serviceConfig = {
-      ExecStart = "google-drive-ocamlfuse /home/smissingham/g";
-      ExecStop = "fusermount - u /home/smissingham/g";
-      Restart = "always";
-      Type = "forking";
+      Type = "oneshot";
+      User = "smissingham";
+      Group = "users";
+      WorkingDirectory = "/home/smissingham/proton-drive";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full cloudsync: /home/smissingham/proton-drive";
     };
     wantedBy = ["multi-user.target"];
-    # aliases = [
-    #   "google-drive.service"
-    # ];
   };
 }
