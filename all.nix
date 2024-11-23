@@ -57,6 +57,7 @@ in {
     pciutils
     wget
     alejandra # nix code formatter
+    home-manager
 
     # Media Apps
     spotify
