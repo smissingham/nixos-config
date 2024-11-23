@@ -52,6 +52,7 @@ in {
   environment.systemPackages = with pkgs; [
     # System Utils
     git
+    rclone
     htop
     pciutils
     wget
