@@ -74,6 +74,7 @@ in {
     texliveTeTeX # pdf export support for obsidian
     google-drive-ocamlfuse
     shutter # snipping tool
+    unstable.ente-auth
 
     # extra web browsers
     chromium
