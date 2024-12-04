@@ -58,6 +58,7 @@ in {
     wget
     alejandra # nix code formatter
     home-manager
+    cockpit # server admin webui
 
     # Media Apps
     spotify
