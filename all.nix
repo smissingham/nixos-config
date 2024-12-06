@@ -59,8 +59,9 @@ in {
     alejandra # nix code formatter
     home-manager
 
-    # Media Apps
+    # Entertainment
     spotify
+    xboxdrv # controller driver
 
     # Commumincation Apps
     telegram-desktop

@@ -97,7 +97,7 @@ services:
 
   # game servers
   factorio:
-    image: factoriotools/factorio:2.0.22
+    image: factoriotools/factorio:stable
     container_name: factorio
     restart: unless-stopped
     stdin_open: true # docker run -i
