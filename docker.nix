@@ -9,15 +9,11 @@
 
   hardware.nvidia-container-toolkit.enable = true;
 
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-    #daemon.settings = {
-    #  default-runtime = "nvidia";
-    #  runtimes.nvidia.path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
-    #  exec-opts = ["native.cgroupdriver=cgroupfs"];
-    #};
-  };
+  # currently broken after 24.11, see https://github.com/NVIDIA/nvidia-container-toolkit/issues/434
+  #virtualisation.docker.rootless = {
+  #  enable = true;
+  #  setSocketVariable = true;
+  #};
 
   environment.systemPackages = with pkgs; [
     docker-compose
