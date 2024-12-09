@@ -87,7 +87,7 @@ in {
     # Developer applications
     git
     vscode
-    zed-editor
+    latest-beta.zed-editor
     gitkraken
     bruno
     jetbrains-toolbox
