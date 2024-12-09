@@ -16,11 +16,7 @@
 # in
 {
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["nvidia"];
@@ -78,7 +74,7 @@
 
     ## BUILTIN DRIVE OPTIONS ##
 
-    #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     #package = config.boot.kernelPackages.nvidiaPackages.beta; # accentuates flickering issue
     #package = config.boot.kernelPackages.nvidiaPackages.production;
 
@@ -109,12 +105,13 @@
     #};
 
     # 2024-09-07 Best So Far
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "555.58.02";
-      sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
-      settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
-      persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
-    };
+    # 2024-12-09 Still the best, switching to force update to nixos 24.11
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "555.58.02";
+    #  sha256_64bit = "sha256-xctt4TPRlOJ6r5S54h5W6PT6/3Zy2R4ASNFPu8TSHKM=";
+    #  settingsSha256 = "sha256-ZpuVZybW6CFN/gz9rx+UJvQ715FZnAOYfHn5jt5Z2C8=";
+    #  persistencedSha256 = "sha256-a1D7ZZmcKFWfPjjH1REqPM5j/YLWKnbkP9qfRyIyxAw=";
+    #};
 
     # Stable games, firefox crashing
     # package = config.boot.kernelPackages.nvidiaPackages.mkDriver {

@@ -21,7 +21,7 @@
       User = "smissingham";
       Group = "users";
       WorkingDirectory = "/home/smissingham/proton-drive";
-      ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode full cloudsync: /home/smissingham/proton-drive";
+      ExecStart = "${pkgs.rclone}/bin/rclone sync --vfs-cache-mode full cloudsync: /home/smissingham/proton-drive";
     };
     wantedBy = ["multi-user.target"];
   };

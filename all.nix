@@ -33,15 +33,18 @@ in {
   #boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # NETWORKING
-  networking.wireless = {
-    enable = true;
-    userControlled.enable = true;
-    networks = {
-      ${envVariables.wifi.ssid} = {
-        psk = envVariables.wifi.password;
-      };
-    };
-  };
+  #networking.wireless = {
+  #  enable = true;
+  #  userControlled.enable = true;
+  #  networks = {
+  #    ${envVariables.wifi.ssid} = {
+  #      psk = envVariables.wifi.password;
+  #    };
+  #  };
+  #};
+
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
 
   # Extra programs that can't/should'nt install via systemPackages
   services.flatpak.enable = true;
@@ -75,7 +78,7 @@ in {
     texliveTeTeX # pdf export support for obsidian
     google-drive-ocamlfuse
     shutter # snipping tool
-    unstable.ente-auth
+    ente-auth
 
     # extra web browsers
     chromium
@@ -84,11 +87,10 @@ in {
     # Developer applications
     git
     vscode
-    latest-beta.zed-editor # ironically, terribly slow. Probably just needs better nix support
-    # note, jetbrains products via systemPackages don't work. Use toolbox instead
-    jetbrains-toolbox
+    zed-editor
     gitkraken
     bruno
+    jetbrains-toolbox
 
     # SDKs
 
