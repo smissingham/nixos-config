@@ -1,22 +1,13 @@
-networks:
-  public:
-    external: true
-    name: public
-  internal:
-    name: internal
-
 services:
   traefik:
     container_name: traefik
     image: traefik:v2.11
     restart: unless-stopped
+    privileged: true
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
-    networks:
-      - public
-      - internal
     command:
       - --log.level=DEBUG
       - --api.dashboard=true
@@ -32,34 +23,56 @@ services:
       - "8080:8080" # traefik dashboard
     volumes:
       - ${APP_DATA}/webservices/letsencrypt:/letsencrypt
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      #- /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/podman/podman.sock:/var/run/docker.sock:ro
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - /var/run/podman/podman.sock:/var/run/docker.sock:ro
+      - ${APP_DATA}/webservices/portainer:/data
+    #    ports:
+    #      - "9000:9000"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.rule=Host(`portainer.${ROOT_DOMAIN}`)
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.tls.certresolver=resolver
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
 
   ollama:
     container_name: ollama
     image: ollama/ollama
     restart: unless-stopped
-    stdin_open: true # docker run -i
-    tty: true # docker run -t
+    hostname: ollama
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
       - PGID=${PGID}
       - OLLAMA_KEEP_ALIVE=24h
-    networks:
-      - internal
     volumes:
       - ${APP_DATA}/webservices/ollama:/root/.ollama
-    ports:
-      - "11434:11434"
-    # NixOS specific syntax to get GPU support working.
-    # For standard syntax, see: https://docs.docker.com/compose/how-tos/gpu-support/
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: cdi
-              device_ids:
-                - nvidia.com/gpu=all
+    #    ports:
+    #      - "11434:11434"
+    # podman syntax for nvidia support
+    devices:
+      - nvidia.com/gpu=all
+    # nixos docker rootless syntax for nvidia support
+    #    deploy:
+    #      resources:
+    #        reservations:
+    #          devices:
+    #            - driver: cdi
+    #              device_ids:
+    #                - nvidia.com/gpu=all
     labels:
       - traefik.enable=true
       - traefik.http.routers.ollama.rule=Host(`${SECRET_OLLAMA_SUBDOMAIN}.${ROOT_DOMAIN}`)
@@ -79,14 +92,12 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - "OLLAMA_BASE_URL=http://ollama:11434"
-    networks:
-      - internal
     volumes:
       - ${APP_DATA}/webservices/open-webui:/app/backend/data
     depends_on:
       - ollama
-    # ports:
-    #   - 3000:8080
+    #    ports:
+    #      - 3000:8080
     labels:
       - traefik.enable=true
       - traefik.http.routers.openwebui.rule=Host(`llm.${ROOT_DOMAIN}`)
@@ -95,13 +106,50 @@ services:
       - traefik.http.routers.openwebui.tls.certresolver=resolver
       - traefik.http.services.openwebui.loadbalancer.server.port=8080
 
+  anythingllm:
+    image: mintplexlabs/anythingllm
+    container_name: anythingllm
+    #    ports:
+    #      - "3001:3001"
+    cap_add:
+      - SYS_ADMIN
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      # Adjust for your environment
+      - STORAGE_DIR=/app/server/storage
+      - JWT_SECRET="make this a large list of random numbers and letters 20+"
+      - LLM_PROVIDER=ollama
+      - OLLAMA_BASE_PATH=http://ollama:11434
+      - OLLAMA_MODEL_PREF=llama3.1:8b
+      - OLLAMA_MODEL_TOKEN_LIMIT=4096
+      - EMBEDDING_ENGINE=ollama
+      - EMBEDDING_BASE_PATH=http://ollama:11434
+      - EMBEDDING_MODEL_PREF=nomic-embed-text:latest
+      - EMBEDDING_MODEL_MAX_CHUNK_LENGTH=8192
+      - VECTOR_DB=lancedb
+      - WHISPER_PROVIDER=local
+      - TTS_PROVIDER=native
+      - PASSWORDMINCHAR=8
+      # Add any other keys here for services or settings
+      # you can find in the docker/.env.example file
+    volumes:
+      - ${APP_DATA}/webservices/anythingllm:/app/server/storage
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.anythingllm.rule=Host(`anythingllm.${ROOT_DOMAIN}`)
+      - traefik.http.routers.anythingllm.tls=true
+      - traefik.http.routers.anythingllm.entrypoints=websecure
+      - traefik.http.routers.anythingllm.tls.certresolver=resolver
+      - traefik.http.services.anythingllm.loadbalancer.server.port=3001
+
   # game servers
   factorio:
     image: factoriotools/factorio:stable
     container_name: factorio
     restart: unless-stopped
-    stdin_open: true # docker run -i
-    tty: true # docker run -t
     ports:
       - "34197:34197/udp"
       - "27015:27015/tcp"

@@ -66,6 +66,8 @@ in {
     spotify
     xboxdrv # controller driver
 
+    floorp # web browser
+
     # Commumincation Apps
     telegram-desktop
     discord
