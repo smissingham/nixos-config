@@ -30,7 +30,7 @@ services:
     container_name: portainer
     image: portainer/portainer-ce:latest
     restart: unless-stopped
-    privileged: true
+    #privileged: true
     environment:
       - TZ=${TZ}
       - PUID=${PUID}
@@ -73,13 +73,13 @@ services:
     #            - driver: cdi
     #              device_ids:
     #                - nvidia.com/gpu=all
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.ollama.rule=Host(`${SECRET_OLLAMA_SUBDOMAIN}.${ROOT_DOMAIN}`)
-      - traefik.http.routers.ollama.tls=true
-      - traefik.http.routers.ollama.entrypoints=websecure
-      - traefik.http.routers.ollama.tls.certresolver=resolver
-      - traefik.http.services.ollama.loadbalancer.server.port=11434
+    #labels:
+      #- traefik.enable=true
+      #- traefik.http.routers.ollama.rule=Host(`${SECRET_OLLAMA_SUBDOMAIN}.${ROOT_DOMAIN}`)
+      #- traefik.http.routers.ollama.tls=true
+      #- traefik.http.routers.ollama.entrypoints=websecure
+      #- traefik.http.routers.ollama.tls.certresolver=resolver
+      #- traefik.http.services.ollama.loadbalancer.server.port=11434
       #- traefik.http.routers.ollama.middlewares=auth
       #- traefik.http.middlewares.auth.basicauth.users=${BASIC_AUTH_USER}:${BASIC_AUTH_PASS}
 
@@ -105,45 +105,6 @@ services:
       - traefik.http.routers.openwebui.entrypoints=websecure
       - traefik.http.routers.openwebui.tls.certresolver=resolver
       - traefik.http.services.openwebui.loadbalancer.server.port=8080
-
-  anythingllm:
-    image: mintplexlabs/anythingllm
-    container_name: anythingllm
-    #    ports:
-    #      - "3001:3001"
-    cap_add:
-      - SYS_ADMIN
-    restart: unless-stopped
-    environment:
-      - TZ=${TZ}
-      - PUID=${PUID}
-      - PGID=${PGID}
-      # Adjust for your environment
-      - STORAGE_DIR=/app/server/storage
-      - JWT_SECRET="make this a large list of random numbers and letters 20+"
-      - LLM_PROVIDER=ollama
-      - OLLAMA_BASE_PATH=http://ollama:11434
-      - OLLAMA_MODEL_PREF=llama3.1:8b
-      - OLLAMA_MODEL_TOKEN_LIMIT=4096
-      - EMBEDDING_ENGINE=ollama
-      - EMBEDDING_BASE_PATH=http://ollama:11434
-      - EMBEDDING_MODEL_PREF=nomic-embed-text:latest
-      - EMBEDDING_MODEL_MAX_CHUNK_LENGTH=8192
-      - VECTOR_DB=lancedb
-      - WHISPER_PROVIDER=local
-      - TTS_PROVIDER=native
-      - PASSWORDMINCHAR=8
-      # Add any other keys here for services or settings
-      # you can find in the docker/.env.example file
-    volumes:
-      - ${APP_DATA}/webservices/anythingllm:/app/server/storage
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.anythingllm.rule=Host(`anythingllm.${ROOT_DOMAIN}`)
-      - traefik.http.routers.anythingllm.tls=true
-      - traefik.http.routers.anythingllm.entrypoints=websecure
-      - traefik.http.routers.anythingllm.tls.certresolver=resolver
-      - traefik.http.services.anythingllm.loadbalancer.server.port=3001
 
   # game servers
   factorio:
