@@ -4,12 +4,16 @@ for drive in /dev/nvme{0..3}n1; do
 	# Create GPT partition tables
 	parted -s "$drive" mklabel gpt
 	
-	# Create EFI partition
-	parted -s "$drive" mkpart EFI fat32 1MiB 513MiB
+	# Create 2GB EFI partition
+	parted -s "$drive" mkpart EFI fat32 1MiB 2049MiB
 	parted -s "$drive" set 1 boot on
-	parted -s "$drive" mkpart primary 513MiB 100%
-		
+
+ 	# Create Primary partition on remainder of disk
+	parted -s "$drive" mkpart primary 2049MiB 100%
+
+ 	# Write a FAT32 FS to the EFI partition
 	mkfs.fat -F 32 "$drive"p1
+ 
 done
 
 #### CREATE LINUX MD RAID 10 ARRAY ####
@@ -33,11 +37,11 @@ mkfs.ext4 /dev/mapper/luksraid
 mkdir /mnt
 mount /dev/mapper/luksraid /mnt
 
-#### MOUNT BOOT PARTITIONS, FIRST AS PRIMARY
+#### MOUNT BOOT PARTITIONS ####
 for i in {0..3}; do
-	mkdir -p /mnt/boot/efi"$i"
- 	mount /dev/nvme"$i"n1p1 /mnt/boot/efi"$i"
+	mkdir -p /mnt/boot$((i+1))
+ 	mount /dev/nvme{$i}n1p1 /mnt/boot$((i+1))
 done
 
-# print mounts to /mnt
+#### PRINT MOUNTS TO SCREEN ####
 df -h | grep /mnt
