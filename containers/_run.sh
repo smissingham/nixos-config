@@ -1,0 +1,1 @@
+sudo podman-compose up -d

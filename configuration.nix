@@ -58,8 +58,6 @@
     home-manager # nix config management for user home
   ];
 
-  #programs.steam.enable = true; # sadly, steam has to be installed this way to work properly
-
   # Prevent all types of suspend/sleep. This is a server, and this only causes graphical issues
   systemd.sleep.extraConfig = ''
     AllowSuspend=no

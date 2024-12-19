@@ -60,8 +60,8 @@ services:
       - OLLAMA_KEEP_ALIVE=24h
     volumes:
       - ${APP_DATA}/webservices/ollama:/root/.ollama
-    #    ports:
-    #      - "11434:11434"
+    ports:
+      - "11434:11434"
     # podman syntax for nvidia support
     devices:
       - nvidia.com/gpu=all
@@ -117,8 +117,9 @@ services:
     volumes:
       - ${APP_DATA}/gameservers/factorio:/factorio
     environment:
-      - PUID=1000
-      - PGID=1000
+      - TZ=${TZ}
+      - PUID=${PUID}
+      - PGID=${PGID}
       - UPDATE_MODS_ON_START=true
 #      - USERNAME=FactorioUsername
 #      - TOKEN=FactorioToken

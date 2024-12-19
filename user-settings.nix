@@ -18,6 +18,9 @@ in
       extraGroups = ["networkmanager" "wheel"];
     };
 
+    # sadly, steam has to be installed via global modules, other options don't work
+    programs.steam.enable = true;
+
     home-manager = {
       # Allow unfree packages
       useGlobalPkgs = true;
