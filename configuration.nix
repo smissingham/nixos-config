@@ -7,7 +7,7 @@
     ./hardware-configuration.nix
     ./user-settings.nix
     ./network.nix
-    #./containers/containers.nix
+    ./containers/containers.nix
   ];
 
   # Set your time zone.
@@ -49,9 +49,9 @@
     # SYSUTILS
     wget
     git
-    #rclone
-    #htop
-    #pciutils
+    rclone
+    htop
+    pciutils
 
     # NIX SPECIFICS
     alejandra # nix file formatter
