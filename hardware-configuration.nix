@@ -31,7 +31,6 @@
             path = "/boot4";
             efiSysMountPoint = "/boot4";
           }
-        ];
       ];
     };
     efi = {
