@@ -4,9 +4,9 @@
 # Useful for first-time generating of hardware
 #nixos-generate-config --root /mnt
 
-# Copy configurations to /etc/nixos
+# Copy configurations and git repo to /etc/nixos
 mkdir -p /mnt/etc/nixos
-cp -r ../* /mnt/etc/nixos/
+cp -ra ../* /mnt/etc/nixos/
 
 # get the UUID of the earlier created mdadm array
 ARRAYUUID=$(mdadm --detail --scan /dev/md0 | grep -o 'UUID=[^ ]*' | cut -d= -f2)
