@@ -43,5 +43,9 @@ for i in {0..3}; do
  	mount /dev/nvme"$i"n1p1 /mnt/boot$((i+1))
 done
 
+#### BIND MOUNT FIRST BOOT PARTITION TO DEFAULT /BOOT ####
+mkdir /boot
+mount --bind /boot1 /boot
+
 #### PRINT MOUNTS TO SCREEN ####
 df -h | grep /mnt
