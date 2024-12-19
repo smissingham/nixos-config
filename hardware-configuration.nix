@@ -75,11 +75,10 @@
   
   # bind mount one to /boot where grub expects there must be a folder
   fileSystems."/boot" = {
-    bind = "/boot1";
     depends = [
         "/boot1" 
     ];
-    #device = "/dev/nvme0n1p1";
+    device = "/boot1";
     fsType = "vfat";
     options = [
       "bind"
