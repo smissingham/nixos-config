@@ -6,12 +6,9 @@
   imports = [
     ./hardware-configuration.nix
     ./user-settings.nix
-    ./containers/containers.nix
+    ./network.nix
+    #./containers/containers.nix
   ];
-
-  # Configure networking
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -52,16 +49,16 @@
     # SYSUTILS
     wget
     git
-    rclone
-    htop
-    pciutils
+    #rclone
+    #htop
+    #pciutils
 
     # NIX SPECIFICS
     alejandra # nix file formatter
     home-manager # nix config management for user home
   ];
 
-  programs.steam.enable = true; # sadly, steam has to be installed this way to work properly
+  #programs.steam.enable = true; # sadly, steam has to be installed this way to work properly
 
   # Prevent all types of suspend/sleep. This is a server, and this only causes graphical issues
   systemd.sleep.extraConfig = ''

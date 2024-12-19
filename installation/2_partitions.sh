@@ -28,18 +28,16 @@ cat /proc/mdstat
 cryptsetup --verbose --verify-passphrase luksFormat /dev/md0
 cryptsetup luksOpen /dev/md0 luksraid
 
-#### CREATE FILESYSTEMS AND MOUNTS ####
+#### PUT FILESYSTEM ON LUKS AND MOUNT IT TO MNT ROOT ####
 mkfs.ext4 /dev/mapper/luksraid
-mkdir -p /mnt
+mkdir /mnt
 mount /dev/mapper/luksraid /mnt
 
 #### MOUNT BOOT PARTITIONS, FIRST AS PRIMARY
-mount /dev/nvme0n1p1 /mnt/boot
-
-mkdir -p /mnt/boot/efi{2,3,4}
-mount /dev/nvme1n1p1 /mnt/boot/efi2
-mount /dev/nvme2n1p1 /mnt/boot/efi3
-mount /dev/nvme3n1p1 /mnt/boot/efi4
+for i in {0..3}; do
+	mkdir -p /mnt/boot/efi"$i"
+ 	mount /dev/nvme"$i"n1p1 /mnt/boot/efi"$i"
+done
 
 # print mounts to /mnt
 df -h | grep /mnt

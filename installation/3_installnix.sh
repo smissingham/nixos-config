@@ -6,7 +6,7 @@
 
 # Copy configurations to /etc/nixos
 mkdir -p /mnt/etc/nixos
-cp ../* /mnt/etc/nixos/
+cp -r ../* /mnt/etc/nixos/
 
 # get the UUID of the earlier created mdadm array
 ARRAYUUID=$(mdadm --detail --scan /dev/md0 | grep -o 'UUID=[^ ]*' | cut -d= -f2)

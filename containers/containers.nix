@@ -24,8 +24,6 @@
     };
   };
 
-  networking.firewall.interfaces."podman+".allowedUDPPorts = [53 5353];
-
   # Useful other development tools
   environment.systemPackages = with pkgs; [
     dive # look into docker image layers

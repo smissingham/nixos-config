@@ -30,31 +30,31 @@ in
         home.packages = with pkgs; [
           # WEB BROWSING
           floorp
-          chromium
-          microsoft-edge
+          #chromium
+          #microsoft-edge
           kdePackages.plasma-browser-integration
 
           # MEDIA & ENTERTAINMENT
-          spotify
-          xboxdrv # xbox controller driver
+          #spotify
+          #xboxdrv # xbox controller driver
 
           # COMMUNICATIONS
-          telegram-desktop
-          discord
+          #telegram-desktop
+          #discord
 
           # PRODUCTIVITY
-          libreoffice
-          obsidian
+          #libreoffice
+          #obsidian
 
           # DEV TOOLS
           kdePackages.kate
-          jetbrains-toolbox
-          vscode
-          gitkraken
-          bruno
+          #jetbrains-toolbox
+          #vscode
+          #gitkraken
+          #bruno
 
           # WORK APPS
-          teams-for-linux
+          #teams-for-linux
         ];
 
         programs.git = {
