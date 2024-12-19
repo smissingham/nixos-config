@@ -17,19 +17,19 @@
       mirroredBoots = [
           {
             path = "/boot1";
-            efiSysMountPoint = "/boot1";
+            device = "/dev/nvme0n1p1";
           }
           {
             path = "/boot2";
-            efiSysMountPoint = "/boot2";
+            device = "/dev/nvme1n1p1";
           }
           {
             path = "/boot3";
-            efiSysMountPoint = "/boot3";
+            device = "/dev/nvme2n1p1";
           }
           {
             path = "/boot4";
-            efiSysMountPoint = "/boot4";
+            device = "/dev/nvme3n1p1";
           }
       ];
     };
