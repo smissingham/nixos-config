@@ -76,6 +76,14 @@
   # bind mount one to /boot where grub expects there must be a folder
   fileSystems."/boot" = {
     bind = "/boot1";
+    depends = [
+        "/boot1" 
+    ];
+    #device = "/dev/nvme0n1p1";
+    fsType = "vfat";
+    options = [
+      "bind"
+    ];
   };
 
   # Ensure necessary kernel modules are available in initrd
