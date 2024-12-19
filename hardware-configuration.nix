@@ -17,19 +17,19 @@
       mirroredBoots = [
           {
             path = "/boot1";
-            device = "/dev/nvme0n1p1";
+            devices = ["/dev/nvme0n1p1"];
           }
           {
             path = "/boot2";
-            device = "/dev/nvme1n1p1";
+            devices = ["/dev/nvme1n1p1"];
           }
           {
             path = "/boot3";
-            device = "/dev/nvme2n1p1";
+            devices = ["/dev/nvme2n1p1"];
           }
           {
             path = "/boot4";
-            device = "/dev/nvme3n1p1";
+            devices = ["/dev/nvme3n1p1"];
           }
       ];
     };
