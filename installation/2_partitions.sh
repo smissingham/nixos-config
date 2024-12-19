@@ -44,8 +44,8 @@ for i in {0..3}; do
 done
 
 #### BIND MOUNT FIRST BOOT PARTITION TO DEFAULT /BOOT ####
-mkdir /boot
-mount --bind /boot1 /boot
+mkdir /mnt/boot
+mount --bind /mnt/boot1 /mnt/boot
 
 #### PRINT MOUNTS TO SCREEN ####
 df -h | grep /mnt
