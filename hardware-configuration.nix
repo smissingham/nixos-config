@@ -15,27 +15,27 @@
       device = "nodev";
       efiSupport = true;
       mirroredBoots = [
-        {
-          path = "/boot/efi0";
-          devices = ["/dev/nvme0n1"];
-        }
-        {
-          path = "/boot/efi1";
-          devices = ["/dev/nvme1n1"];
-        }
-        {
-          path = "/boot/efi2";
-          devices = ["/dev/nvme2n1"];
-        }
-        {
-          path = "/boot/efi3";
-          devices = ["/dev/nvme3n1"];
-        }
+          {
+            path = "/boot1";
+            efiSysMountPoint = "/boot1";
+          }
+          {
+            path = "/boot2";
+            efiSysMountPoint = "/boot2";
+          }
+          {
+            path = "/boot3";
+            efiSysMountPoint = "/boot3";
+          }
+          {
+            path = "/boot4";
+            efiSysMountPoint = "/boot4";
+          }
+        ];
       ];
     };
     efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/efi0";
     };
   };
 
@@ -57,21 +57,26 @@
   };
 
   # define redundant boot partitions
-  fileSystems."/boot/efi0" = {
+  fileSystems."/boot1" = {
     device = "/dev/nvme0n1p1";
     fsType = "vfat";
   };
-  fileSystems."/boot/efi1" = {
+  fileSystems."/boot2" = {
     device = "/dev/nvme1n1p1";
     fsType = "vfat";
   };
-  fileSystems."/boot/efi2" = {
+  fileSystems."/boot3" = {
     device = "/dev/nvme2n1p1";
     fsType = "vfat";
   };
-  fileSystems."/boot/efi3" = {
+  fileSystems."/boot4" = {
     device = "/dev/nvme3n1p1";
     fsType = "vfat";
+  };
+  
+  # bind mount one to /boot where grub expects there must be a folder
+  fileSystems."/boot" = {
+    bind = "/boot1";
   };
 
   # Ensure necessary kernel modules are available in initrd
