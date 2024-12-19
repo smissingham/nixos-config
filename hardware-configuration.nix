@@ -10,31 +10,32 @@
   ];
 
   boot.loader = {
+    efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      device = "nodev";
       efiSupport = true;
       mirroredBoots = [
         {
           path = "/boot1";
-          devices = ["/dev/nvme0n1p1"];
+          efiSysMountPoint = "/boot1";
+          devices = ["nodev"];
         }
         {
           path = "/boot2";
-          devices = ["/dev/nvme1n1p1"];
+          efiSysMountPoint = "/boot2";
+          devices = ["nodev"];
         }
         {
           path = "/boot3";
-          devices = ["/dev/nvme2n1p1"];
+          efiSysMountPoint = "/boot3";
+          devices = ["nodev"];
         }
         {
           path = "/boot4";
-          devices = ["/dev/nvme3n1p1"];
+          efiSysMountPoint = "/boot4";
+          devices = ["nodev"];
         }
       ];
-    };
-    efi = {
-      canTouchEfiVariables = true;
     };
   };
 
@@ -70,18 +71,6 @@
   fileSystems."/boot4" = {
     device = "/dev/nvme3n1p1";
     fsType = "vfat";
-  };
-
-  # bind mount one to /boot where grub expects there must be a folder
-  fileSystems."/boot" = {
-    depends = [
-      "/boot1"
-    ];
-    device = "/boot1";
-    fsType = "vfat";
-    options = [
-      "bind"
-    ];
   };
 
   # Ensure necessary kernel modules are available in initrd
