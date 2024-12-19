@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-pushd /home/smissingham/nixos-config &>/dev/null
+pushd ~/Documents/nixos-config &>/dev/null
 
 # auto-format nix files
 # capture errors for print but suppress the extra junk
@@ -12,6 +12,17 @@ for i in *.nix; do
   fi
 done
 
+#  delete contents of /etc/nixos, copy only .nix files to over,  preserving folders
+sudo rm -rf /etc/nixos/*
+sudo rclone sync --include "*.nix" . /etc/nixos
+
+# get the UUID of the earlier created mdadm array
+ARRAYUUID=$(sudo mdadm --detail --scan /dev/md0 | grep -o 'UUID=[^ ]*' | cut -d= -f2)
+
+# Use sed to replace the placeholder with the real UUID in the hardware-configuration file
+sudo sed -i "s/ARRAYUUID/$ARRAYUUID/" /etc/nixos/hardware-configuration.nix
+
+
 git --no-pager diff -U0 *.nix
 echo "NixOS Rebuilding..."
 
@@ -21,7 +32,6 @@ cat nixos-switch.log | grep --color error && false)
 echo "Committing to Repo"
 generation=$(nixos-rebuild list-generations | grep current)
 
-sh ./_copytoml
 
 git add .
 git commit -m "$generation"
