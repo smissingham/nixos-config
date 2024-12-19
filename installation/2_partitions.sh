@@ -40,7 +40,7 @@ mount /dev/mapper/luksraid /mnt
 #### MOUNT BOOT PARTITIONS ####
 for i in {0..3}; do
 	mkdir -p /mnt/boot$((i+1))
- 	mount /dev/nvme$(i)n1p1 /mnt/boot$((i+1))
+ 	mount /dev/nvme"$i"n1p1 /mnt/boot$((i+1))
 done
 
 #### PRINT MOUNTS TO SCREEN ####
