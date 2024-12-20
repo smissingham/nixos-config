@@ -80,8 +80,8 @@ in
           enableZshIntegration = true;
           extraConfig = ''
             return {
-              enable_wayland = true,
-              front_end = "OpenGL",
+              enable_wayland = false,
+              front_end = "WebGpu",
             }
           '';
         };
