@@ -74,6 +74,14 @@ in
           userEmail = "sean@missingham.com";
         };
 
+        programs.zsh = {
+          oh-my-zsh = {
+            enable = true;
+            plugins = ["git" "thefuck"];
+            theme = "robbyrussell";
+          };
+        };
+
         programs.plasma = {
           enable = true;
 
