@@ -87,6 +87,7 @@ in
 
           shellAliases = {
             ll = "ls -l";
+            vim = "nvim";
             nxupdate = "bash ~/Documents/nixos-config/_rebuild.sh";
           };
 
@@ -101,6 +102,7 @@ in
           };
 
           initExtra = "source ~/.p10k.zsh";
+
           plugins = [
             {
               name = "powerlevel10k";
