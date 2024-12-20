@@ -73,8 +73,8 @@ in
 
         programs.zsh = {
           enableCompletion = true;
-          #enableAutosuggestions = true;
-          #syntaxHighlighting.enable = true;
+          enableAutosuggestions = true;
+          syntaxHighlighting.enable = true;
 
           shellAliases = {
             ll = "ls -l";
