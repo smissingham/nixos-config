@@ -96,7 +96,7 @@ in
 
           oh-my-zsh = {
             enable = true;
-            theme = "robbyrussell";
+            theme = "powerlevel10k";
             plugins = [
               ""
             ];
