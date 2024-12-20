@@ -82,6 +82,7 @@ in
             return {
               --enable_wayland = true,
               --front_end = "Software",
+              enable_wayland_explicit_sync
             }
           '';
         };
