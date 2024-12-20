@@ -68,8 +68,6 @@ in
           podman-desktop
           neovim
 
-          oh-my-posh
-
           # WORK APPS
           teams-for-linux
         ];
@@ -103,12 +101,6 @@ in
               ""
             ];
           };
-        };
-
-        programs.oh-my-posh = {
-          enable = true;
-          enableZshIntegration = true;
-          useTheme = "powerlevel10k";
         };
 
         programs.plasma = {
