@@ -66,11 +66,15 @@ in
           gitkraken
           bruno
           podman-desktop
-          neovim
-          tmux
 
           # WORK APPS
           teams-for-linux
+
+          # TERMINAL STUFF
+          neovim
+          tmux
+          fzf
+          eza
         ];
 
         programs.git = {
