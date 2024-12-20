@@ -105,6 +105,12 @@ in
           };
         };
 
+        programs.oh-my-posh = {
+          enable = true;
+          enableZshIntegration = true;
+          useTheme = "powerlevel10k";
+        };
+
         programs.plasma = {
           enable = true;
 
