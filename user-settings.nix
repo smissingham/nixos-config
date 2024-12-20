@@ -55,6 +55,7 @@ in
           vscode
           gitkraken
           bruno
+          podman-desktop
 
           # WORK APPS
           teams-for-linux

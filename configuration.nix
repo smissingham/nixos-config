@@ -52,6 +52,7 @@
     rclone
     htop
     pciutils
+    v4l-utils
 
     # NIX SPECIFICS
     alejandra # nix file formatter
