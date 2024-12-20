@@ -1,6 +1,7 @@
 #!/bin/sh
 
-podman-compose -f core.docker-compose.yml up -d --remove-orphans
+sudo podman-compose -f core.docker-compose.yml up -d --remove-orphans
+podman-compose -f llm.docker-compose.yml up -d --remove-orphans
 podman-compose -f games.docker-compose.yml up -d --remove-orphans
 
 
