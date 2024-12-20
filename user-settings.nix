@@ -83,7 +83,7 @@ in
 
           shellAliases = {
             ll = "ls -l";
-            tst = "echo 'hi'";
+            rebuild = "./~/Documents/nixos-config/_rebuild.sh";
           };
 
           history = {
