@@ -11,37 +11,16 @@ in
       (import "${home-manager}/nixos")
     ];
 
+    programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
+    programs.zsh.enable = true;
+    #users.defaultUserShell = pkgs.zsh;
+
     # Define system user account (outside of home manager)
     users.users.smissingham = {
       isNormalUser = true;
       description = "smissingham";
       extraGroups = ["networkmanager" "wheel" "podman"];
-    };
-
-    # sadly, steam has to be installed via global modules, other options don't work
-    programs.steam.enable = true;
-
-    programs.zsh = {
-      enable = true;
-      enableCompletion = true;
-      syntaxHighlighting.enable = true;
-      #autoSuggestion.enable = true;
-
-      shellAliases = {
-        ll = "ls -l";
-        update = "sudo nixos-rebuild switch";
-      };
-
-      #history = {
-      #  size = 10000;
-      #  path = "${config.xdg.dataHome}/zsh/history";
-      #};
-
-      oh-my-zsh = {
-        enable = true;
-        plugins = ["git" "thefuck"];
-        theme = "robbyrussell";
-      };
+      #shell = pkgs.zsh;
     };
 
     home-manager = {
