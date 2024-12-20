@@ -85,7 +85,7 @@ in
 
           shellAliases = {
             ll = "ls -l";
-            rebuild = "./ ~/Documents/nixos-config/_rebuild.sh";
+            rebuild = "bash ~/Documents/nixos-config/_rebuild.sh";
           };
 
           history = {
