@@ -20,6 +20,10 @@
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
 
+      # Make the Podman socket available in place of the Docker socket, so Docker tools can find the Podman socket.
+      # Users must be in the podman group in order to connect. As with Docker, members of this group can gain root access.
+      dockerSocket.enable = true;
+
       autoPrune.enable = true;
     };
   };
