@@ -50,7 +50,7 @@ in
           obsidian
 
           # TERMINAL
-          #wezterm
+          wezterm
           zsh
           zsh-autocomplete
           zsh-autosuggestions
@@ -74,17 +74,17 @@ in
           userEmail = "sean@missingham.com";
         };
 
-        programs.wezterm = {
-          enable = true;
-          enableBashIntegration = true;
-          enableZshIntegration = true;
-          extraConfig = ''
-            return {
-              --enable_wayland = true,
-              --front_end = "WebGpu",
-            }
-          '';
-        };
+        #programs.wezterm = {
+        #  enable = true;
+        #  enableBashIntegration = true;
+        #  enableZshIntegration = true;
+        #  extraConfig = ''
+        #    return {
+        #      --enable_wayland = true,
+        #      --front_end = "WebGpu",
+        #    }
+        #  '';
+        #};
 
         imports = [
           (import "${plasma-manager}/modules")
