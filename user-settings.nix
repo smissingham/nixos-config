@@ -20,7 +20,7 @@ in
       isNormalUser = true;
       description = "smissingham";
       extraGroups = ["networkmanager" "wheel" "podman"];
-      #shell = pkgs.zsh;
+      shell = pkgs.zsh;
     };
 
     home-manager = {
