@@ -26,6 +26,7 @@ in
       # Allow unfree packages
       useGlobalPkgs = true;
       useUserPackages = true;
+      backupFileExtension = "hm-bak";
 
       users.smissingham = {pkgs, ...}: {
         imports = [
@@ -75,7 +76,7 @@ in
         };
 
         programs.zsh = {
-          #enable = true;
+          enable = true;
           enableCompletion = true;
           autosuggestion.enable = true;
           syntaxHighlighting.enable = true;
