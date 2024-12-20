@@ -50,7 +50,7 @@ in
           obsidian
 
           # TERMINAL
-          wezterm
+          #wezterm
           zsh
           zsh-autocomplete
           zsh-autosuggestions
