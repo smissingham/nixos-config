@@ -76,6 +76,8 @@ in
 
         programs.wezterm = {
           enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
           extraConfig = ''
             return {
               enable_wayland = true,
