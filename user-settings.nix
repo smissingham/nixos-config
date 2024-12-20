@@ -13,7 +13,6 @@ in
 
     programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
     programs.zsh.enable = true;
-    users.defaultUserShell = pkgs.zsh;
 
     # Define system user account (outside of home manager)
     users.users.smissingham = {
@@ -27,10 +26,14 @@ in
       # Allow unfree packages
       useGlobalPkgs = true;
       useUserPackages = true;
-      sharedModules = [];
 
       users.smissingham = {pkgs, ...}: {
+        imports = [
+          (import "${plasma-manager}/modules")
+        ];
         home.stateVersion = "24.11";
+        services.home-manager.autoUpgrade.enable = config.system.autoUpgrade.enable;
+        services.home-manager.autoUpgrade.frequency = config.system.autoUpgrade.dates;
 
         home.packages = with pkgs; [
           # WEB BROWSING
@@ -70,13 +73,6 @@ in
           userName = "Sean Missingham";
           userEmail = "sean@missingham.com";
         };
-
-        imports = [
-          (import "${plasma-manager}/modules")
-        ];
-
-        services.home-manager.autoUpgrade.enable = config.system.autoUpgrade.enable;
-        services.home-manager.autoUpgrade.frequency = config.system.autoUpgrade.dates;
 
         programs.plasma = {
           enable = true;
