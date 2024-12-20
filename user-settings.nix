@@ -86,9 +86,13 @@ in
           syntaxHighlighting.enable = true;
 
           shellAliases = {
-            ll = "ls -l";
+            ls = "eza";
+            ll = "eza -l";
+            la = "eza -la";
             vim = "nvim";
-            nxupdate = "bash ~/Documents/nixos-config/_rebuild.sh";
+            vi = "nvim";
+            nxrebuild = "bash ~/Documents/nixos-config/_rebuild.sh";
+            nxshell = "nix-shell -p $1";
           };
 
           history = {
@@ -141,6 +145,7 @@ in
                       "applications:org.kde.dolphin.desktop"
                       "applications:org.kde.konsole.desktop"
                       "applications:floorp.desktop"
+                      "applications:jetbrains-toolbox.desktop"
                     ];
                   };
                 }
