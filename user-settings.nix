@@ -50,7 +50,7 @@ in
           obsidian
 
           # TERMINAL
-          wezterm
+          #wezterm
           zsh
           zsh-autocomplete
           zsh-autosuggestions
@@ -72,6 +72,10 @@ in
           enable = true;
           userName = "Sean Missingham";
           userEmail = "sean@missingham.com";
+        };
+
+        programs.wezterm = {
+          enable = true;
         };
 
         imports = [
