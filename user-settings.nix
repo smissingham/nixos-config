@@ -79,6 +79,15 @@ in
           autosuggestion.enable = true;
           syntaxHighlighting.enable = true;
 
+          shellAliases = {
+            ll = "ls -l";
+            tst = "echo 'hi'";
+          };
+          history = {
+            size = 10000;
+            path = "${config.xdg.dataHome}/zsh/history";
+          };
+
           oh-my-zsh = {
             enable = true;
             theme = "robbyrussell";
