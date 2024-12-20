@@ -87,7 +87,6 @@ in
           shellAliases = {
             ll = "ls -l";
             nxupdate = "bash ~/Documents/nixos-config/_rebuild.sh";
-            hmupdate = "home-manager switch";
           };
 
           history = {
