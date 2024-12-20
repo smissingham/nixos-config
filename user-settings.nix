@@ -21,6 +21,29 @@ in
     # sadly, steam has to be installed via global modules, other options don't work
     programs.steam.enable = true;
 
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+      #autoSuggestion.enable = true;
+
+      shellAliases = {
+        ll = "ls -l";
+        update = "sudo nixos-rebuild switch";
+      };
+
+      #history = {
+      #  size = 10000;
+      #  path = "${config.xdg.dataHome}/zsh/history";
+      #};
+
+      oh-my-zsh = {
+        enable = true;
+        plugins = ["git" "thefuck"];
+        theme = "robbyrussell";
+      };
+    };
+
     home-manager = {
       # Allow unfree packages
       useGlobalPkgs = true;
@@ -68,19 +91,6 @@ in
           userName = "Sean Missingham";
           userEmail = "sean@missingham.com";
         };
-
-        #programs.wezterm = {
-        #  enable = true;
-        #  enableBashIntegration = true;
-        #  enableZshIntegration = true;
-        #  extraConfig = ''
-        #    return {
-        #      --enable_wayland = true,
-        #      --front_end = "Software",
-        #      enable_wayland_explicit_sync
-        #    }
-        #  '';
-        #};
 
         imports = [
           (import "${plasma-manager}/modules")
