@@ -15,7 +15,7 @@ in
     users.users.smissingham = {
       isNormalUser = true;
       description = "smissingham";
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = ["networkmanager" "wheel" "podman"];
     };
 
     # sadly, steam has to be installed via global modules, other options don't work
