@@ -53,6 +53,7 @@
     htop
     pciutils
     v4l-utils
+    wezterm
 
     # NIX SPECIFICS
     alejandra # nix file formatter
