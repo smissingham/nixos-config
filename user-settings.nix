@@ -80,7 +80,7 @@ in
           enableZshIntegration = true;
           extraConfig = ''
             return {
-              enable_wayland = true,
+              --enable_wayland = true,
               --front_end = "WebGpu",
             }
           '';
