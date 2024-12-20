@@ -11,15 +11,15 @@ in
       (import "${home-manager}/nixos")
     ];
 
-    programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
     programs.zsh.enable = true;
+    programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
 
     # Define system user account (outside of home manager)
     users.users.smissingham = {
       isNormalUser = true;
       description = "smissingham";
       extraGroups = ["networkmanager" "wheel" "podman"];
-      shell = pkgs.zsh;
+      #shell = pkgs.zsh;
     };
 
     home-manager = {
@@ -75,6 +75,7 @@ in
         };
 
         programs.zsh = {
+          #enable = true;
           enableCompletion = true;
           autosuggestion.enable = true;
           syntaxHighlighting.enable = true;
@@ -83,10 +84,11 @@ in
             ll = "ls -l";
             tst = "echo 'hi'";
           };
-          history = {
-            size = 10000;
-            path = "${config.xdg.dataHome}/zsh/history";
-          };
+
+          #history = {
+          #  size = 10000;
+          #  path = "${config.xdg.dataHome}/zsh/history";
+          #};
 
           oh-my-zsh = {
             enable = true;
