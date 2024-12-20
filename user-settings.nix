@@ -74,17 +74,17 @@ in
           userEmail = "sean@missingham.com";
         };
 
-        #programs.wezterm = {
-        #  enable = true;
-        #  enableBashIntegration = true;
-        #  enableZshIntegration = true;
-        #  extraConfig = ''
-        #    return {
-        #      --enable_wayland = true,
-        #      --front_end = "WebGpu",
-        #    }
-        #  '';
-        #};
+        programs.wezterm = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+          extraConfig = ''
+            return {
+              --enable_wayland = true,
+              --front_end = "Software",
+            }
+          '';
+        };
 
         imports = [
           (import "${plasma-manager}/modules")
