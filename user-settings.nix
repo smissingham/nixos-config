@@ -96,11 +96,17 @@ in
 
           oh-my-zsh = {
             enable = true;
-            theme = "robbyrussell";
-            plugins = [
-              ""
-            ];
+            #theme = "robbyrussell";
           };
+
+          initExtra = "source ~/.p10k.zsh";
+          plugins = [
+            {
+              name = "powerlevel10k";
+              src = pkgs.zsh-powerlevel10k;
+              file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+            }
+          ];
         };
 
         programs.plasma = {
