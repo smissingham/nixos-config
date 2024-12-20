@@ -67,6 +67,7 @@ in
           bruno
           podman-desktop
           neovim
+          tmux
 
           # WORK APPS
           teams-for-linux
