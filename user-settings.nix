@@ -15,6 +15,7 @@ in
     programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
 
     environment.pathsToLink = ["/share/zsh"]; # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.enableCompletion
+    fonts.packages = with pkgs; [nerdfonts];
 
     # Define system user account (outside of home manager)
     users.users.smissingham = {
@@ -85,7 +86,8 @@ in
 
           shellAliases = {
             ll = "ls -l";
-            rebuild = "bash ~/Documents/nixos-config/_rebuild.sh";
+            nxupdate = "bash ~/Documents/nixos-config/_rebuild.sh";
+            hmupdate = "home-manager switch";
           };
 
           history = {
