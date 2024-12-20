@@ -49,6 +49,12 @@ in
           libreoffice
           obsidian
 
+          # TERMINAL
+          wezterm
+          zsh
+          zsh-autocomplete
+          zsh-autosuggestions
+
           # DEV TOOLS
           kdePackages.kate
           jetbrains-toolbox
@@ -56,6 +62,7 @@ in
           gitkraken
           bruno
           podman-desktop
+          neovim
 
           # WORK APPS
           teams-for-linux
