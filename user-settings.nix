@@ -49,13 +49,8 @@ in
           libreoffice
           obsidian
 
-          # TERMINAL
-          #wezterm
-          zsh
-          zsh-autocomplete
-          zsh-autosuggestions
-
           # DEV TOOLS
+          alacritty
           kdePackages.kate
           jetbrains-toolbox
           vscode
