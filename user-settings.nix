@@ -71,6 +71,9 @@ in
           userEmail = "sean@missingham.com";
         };
 
+        programs.zsh = {
+        };
+
         imports = [
           (import "${plasma-manager}/modules")
         ];
