@@ -13,7 +13,7 @@ in
 
     programs.steam.enable = true; # sadly, steam has to be installed via global modules, other options don't work
     programs.zsh.enable = true;
-    #users.defaultUserShell = pkgs.zsh;
+    users.defaultUserShell = pkgs.zsh;
 
     # Define system user account (outside of home manager)
     users.users.smissingham = {
