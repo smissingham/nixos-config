@@ -68,6 +68,8 @@ in
           podman-desktop
           neovim
 
+          oh-my-posh
+
           # WORK APPS
           teams-for-linux
         ];
@@ -96,7 +98,7 @@ in
 
           oh-my-zsh = {
             enable = true;
-            theme = "powerlevel10k";
+            theme = "robbyrussell";
             plugins = [
               ""
             ];
