@@ -8,6 +8,7 @@
     ./user-settings.nix
     ./network.nix
     ./containers/containers.nix
+    ./devenvs/python.nix
   ];
 
   # Set your time zone.
@@ -44,6 +45,8 @@
     pulse.enable = true;
   };
 
+  #services.flatpak.enable = true;
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   nixpkgs.config.allowUnfree = true;
@@ -59,7 +62,15 @@
     # NIX SPECIFICS
     alejandra # nix file formatter
     home-manager # nix config management for user home
+
+    # SYSADMIN
+    kdiskmark
+    unison
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    filen-desktop = pkgs.callPackage ./packages/filen-desktop.nix {};
+  };
 
   # Prevent all types of suspend/sleep. This is a server, and this only causes graphical issues
   systemd.sleep.extraConfig = ''
