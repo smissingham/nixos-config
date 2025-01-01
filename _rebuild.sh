@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-pushd ~/Documents/nixos-config &>/dev/null
+pushd ~/Documents/NixOS &>/dev/null
 
 # auto-format nix files
 # capture errors for print but suppress the extra junk

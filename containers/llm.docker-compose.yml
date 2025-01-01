@@ -12,6 +12,8 @@ services:
       - ${APP_DATA}/webservices/open-webui:/app/backend/data
     depends_on:
       - ollama
+    ports:
+      - 9090:8080
     labels:
       - traefik.enable=true
       - traefik.http.routers.openwebui.rule=Host(`llm.${ROOT_DOMAIN}`)

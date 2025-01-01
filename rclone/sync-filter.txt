@@ -1,0 +1,12 @@
+# Filter Rules for Rclone Sync to Proton
+
+- */node_modules/*
+- *.git/objects*
+
+#+ /.config/nvim
++ /.config/rclone
++ /.container-data/gameservers**
++ /Documents/**
+
+# Exclude everything not specified above
+- *

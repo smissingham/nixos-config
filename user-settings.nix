@@ -25,6 +25,25 @@ in
       shell = pkgs.zsh;
     };
 
+    # systemd.user.services.filen-desktop = {
+    #   description = "Filen Desktop Sync";
+    #   enable = true;
+    #   serviceConfig.PassEnvironment = "DISPLAY";
+    #   wantedBy = ["graphical-session.target"];
+    #   partOf = ["graphical-session.target"];
+    #   path = [pkgs.filen-desktop];
+
+    #   script = ''
+    #     #!/run/current-system/sw/bin/bash
+    #     sleep 30
+    #     cd ${pkgs.filen-desktop}/bin && filen-desktop
+    #   '';
+
+    #   serviceConfig = {
+    #     RemainAfterExit = true;
+    #   };
+    # };
+
     home-manager = {
       # Allow unfree packages
       useGlobalPkgs = true;
@@ -45,6 +64,7 @@ in
           #chromium
           #microsoft-edge
           kdePackages.plasma-browser-integration
+          #kdePackages.discover flathub browser
 
           # MEDIA & ENTERTAINMENT
           spotify
@@ -54,9 +74,11 @@ in
           telegram-desktop
           discord
 
-          # PRODUCTIVITY
+          # OFFICE
           libreoffice
           obsidian
+          thunderbird
+          filen-desktop
 
           # DEV TOOLS
           alacritty
@@ -95,8 +117,9 @@ in
             la = "eza -la";
             vim = "nvim";
             vi = "nvim";
-            nxrebuild = "bash ~/Documents/nixos-config/_rebuild.sh";
+            nxrebuild = "bash ~/Documents/NixOS/_rebuild.sh";
             nxshell = "nix-shell -p $1";
+            nxbuild = "nix-build -E 'with import <nixpkgs> {}; callPackage '\"$1\"' {}' --show-trace";
           };
 
           history = {
