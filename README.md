@@ -26,6 +26,6 @@ All of the configuration for that is declarative, and version controlled, right 
 - Optionally, set root passwd (after login is easier)
 
 # Post-Installation
-- clone repo contents to ~/Documents/NixOS
-- From now on, use `nxrebuild` to copy config from home dir to `/etc/nixos` (or manually `bash ~/Documents/NixOS/_rebuild.sh`)
+- clone repo contents to $NIX_CONFIG_HOME
+- From now on, use `nxrebuild` to copy config from home dir to `/etc/nixos`
 - When desired, `git push` to push the auto-generated commits up to github master

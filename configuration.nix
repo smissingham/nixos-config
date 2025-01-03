@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ./user-settings.nix
     ./network.nix
+    ./system.nix
     ./containers/containers.nix
     ./devenvs/python.nix
   ];
@@ -50,6 +51,9 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   nixpkgs.config.allowUnfree = true;
+  environment.variables = {
+    NIX_CONFIG_HOME = "/home/smissingham/Documents/NixOS";
+  };
   environment.systemPackages = with pkgs; [
     # SYSUTILS
     wget
@@ -62,10 +66,6 @@
     # NIX SPECIFICS
     alejandra # nix file formatter
     home-manager # nix config management for user home
-
-    # SYSADMIN
-    kdiskmark
-    unison
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {

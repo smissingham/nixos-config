@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-pushd ~/Documents/NixOS &>/dev/null
+pushd $NIX_CONFIG_HOME &>/dev/null
 
 # auto-format nix files
 # capture errors for print but suppress the extra junk
@@ -26,8 +26,8 @@ sudo sed -i "s/ARRAYUUID/$ARRAYUUID/" /etc/nixos/hardware-configuration.nix
 git --no-pager diff -U0 *.nix
 echo "NixOS Rebuilding..."
 
-sudo nixos-rebuild switch &>nixos-switch.log || (
-cat nixos-switch.log | grep --color error && false)
+sudo nixos-rebuild switch &>$NIX_CONFIG_HOME/logs/nixos-switch.log || (
+cat $NIX_CONFIG_HOME/logs/nixos-switch.log | grep --color error && false)
 
 echo "Committing to Repo"
 generation=$(nixos-rebuild list-generations | grep current)

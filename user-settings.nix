@@ -25,25 +25,6 @@ in
       shell = pkgs.zsh;
     };
 
-    # systemd.user.services.filen-desktop = {
-    #   description = "Filen Desktop Sync";
-    #   enable = true;
-    #   serviceConfig.PassEnvironment = "DISPLAY";
-    #   wantedBy = ["graphical-session.target"];
-    #   partOf = ["graphical-session.target"];
-    #   path = [pkgs.filen-desktop];
-
-    #   script = ''
-    #     #!/run/current-system/sw/bin/bash
-    #     sleep 30
-    #     cd ${pkgs.filen-desktop}/bin && filen-desktop
-    #   '';
-
-    #   serviceConfig = {
-    #     RemainAfterExit = true;
-    #   };
-    # };
-
     home-manager = {
       # Allow unfree packages
       useGlobalPkgs = true;
@@ -97,6 +78,8 @@ in
           tmux
           fzf
           eza
+          tldr
+          xclip
         ];
 
         programs.git = {
@@ -117,9 +100,11 @@ in
             la = "eza -la";
             vim = "nvim";
             vi = "nvim";
-            nxrebuild = "bash ~/Documents/NixOS/_rebuild.sh";
+            clip = "xclip -selection clipboard";
+            nxrebuild = "bash $NIX_CONFIG_HOME/scripts/nxrebuild.sh";
             nxshell = "nix-shell -p $1";
             nxbuild = "nix-build -E 'with import <nixpkgs> {}; callPackage '\"$1\"' {}' --show-trace";
+            nxgc = "nix-collect-garbage --delete-old";
           };
 
           history = {
@@ -152,10 +137,16 @@ in
             colorScheme = "BreezeDark";
           };
 
-          hotkeys.commands."launch-konsole" = {
-            name = "Launch Konsole";
+          hotkeys.commands."launch-alacritty" = {
+            name = "Launch Alacritty";
             key = "Ctrl+`";
-            command = "konsole";
+            command = "alacritty";
+          };
+
+          hotkeys.commands."launch-system-monitor" = {
+            name = "Launch System Monitor";
+            key = "Ctrl+Shift+Escape";
+            command = "plasma-systemmonitor";
           };
 
           panels = [
