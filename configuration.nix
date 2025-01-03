@@ -66,6 +66,8 @@
     # NIX SPECIFICS
     alejandra # nix file formatter
     home-manager # nix config management for user home
+
+    kdePackages.krdp
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
