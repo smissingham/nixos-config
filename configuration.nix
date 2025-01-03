@@ -68,6 +68,8 @@
     home-manager # nix config management for user home
 
     kdePackages.krdp
+    freerdp
+    freerdp3
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
