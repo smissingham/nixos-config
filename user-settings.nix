@@ -80,6 +80,7 @@ in
           eza
           tldr
           xclip
+          zoxide
         ];
 
         programs.git = {
@@ -95,6 +96,7 @@ in
           syntaxHighlighting.enable = true;
 
           shellAliases = {
+            z = "zoxide";
             ls = "eza";
             ll = "eza -l";
             la = "eza -la";
