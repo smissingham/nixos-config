@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, appimageTools, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeDesktopItem,
+}:
 let
   pname = "filen-desktop";
   version = "3.0.41";
@@ -6,8 +12,7 @@ let
   arch = builtins.head (builtins.split "-" stdenv.hostPlatform.system);
 
   src = fetchurl {
-    url =
-      "https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${version}/Filen_linux_${arch}.AppImage";
+    url = "https://github.com/FilenCloudDienste/filen-desktop/releases/download/v${version}/Filen_linux_${arch}.AppImage";
     sha256 = "sha256-Nao5By8Z8lMbRcp2Mgw+xaiiFzUxCm6S3SAE5FfDZpk=";
   };
 
@@ -21,7 +26,8 @@ let
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
-in appimageTools.wrapType2 rec {
+in
+appimageTools.wrapType2 rec {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -33,8 +39,7 @@ in appimageTools.wrapType2 rec {
 
   meta = with lib; {
     homepage = "https://filen.io/products/desktop";
-    downloadPage =
-      "https://github.com/FilenCloudDienste/filen-desktop/releases/";
+    downloadPage = "https://github.com/FilenCloudDienste/filen-desktop/releases/";
     description = "Filen Desktop Client for Linux";
     longDescription = ''
       Encrypted Cloud Storage built for your Desktop.

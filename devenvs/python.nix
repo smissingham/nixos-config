@@ -1,15 +1,15 @@
 {
-    config,
-    pkgs,
-    ...
+  config,
+  pkgs,
+  ...
 }:
 {
   environment.systemPackages = with pkgs; [
 
     # --- Python ---
     # binary installs to /run/current-system/sw/bin/python
-    (python311.withPackages (ps:
-      with ps; [
+    (python311.withPackages (
+      ps: with ps; [
         numpy # these two are
         scipy # probably redundant to pandas
         pandas
@@ -33,7 +33,8 @@
         plotly
         matplotlib
         seaborn
-      ]))
+      ]
+    ))
   ];
 
 }

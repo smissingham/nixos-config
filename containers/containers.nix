@@ -4,7 +4,8 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
 
   # Enable common container config files in /etc/containers
   virtualisation.containers.enable = true;
@@ -28,10 +29,4 @@
     };
   };
 
-  # Useful other development tools
-  environment.systemPackages = with pkgs; [
-    dive # look into docker image layers
-    podman-tui # podman ui in terminal
-    podman-compose # start group of containers for dev
-  ];
 }
