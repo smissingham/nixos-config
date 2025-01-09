@@ -1,10 +1,11 @@
+# Dev shell with python and common dependencies I use for data science and exploration
+
 {
-  config,
-  pkgs,
-  ...
+  pkgs ? import <nixpkgs> { },
 }:
-{
-  environment.systemPackages = with pkgs; [
+
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [
 
     # --- Python ---
     # binary installs to /run/current-system/sw/bin/python
@@ -35,6 +36,6 @@
         seaborn
       ]
     ))
-  ];
 
+  ];
 }

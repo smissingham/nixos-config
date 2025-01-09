@@ -5,7 +5,7 @@
   ...
 }:
 {
-  
+
   # ----------- Obsidian Notes > Github Sync ----------- #
   systemd.services."sync-blog" = {
     description = "Obsidian Sync to Github";

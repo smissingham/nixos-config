@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ../../styles/catppuccin-mocha.nix
     ./hardware.nix
     ./systemd.nix
   ];
@@ -44,13 +45,14 @@
     bruno
   ];
 
-  myModules = {
+  mySystemModules = {
     # Window Manager
     wm.plasma6.enable = true;
     entertainment.gaming.enable = true;
 
     access = {
       sunshine.enable = true;
+      sunshine.withMoonlight = true;
       #tailscale.enable = true;
       #tailscale.authKey = secrets.tailscale.authkey;
     };

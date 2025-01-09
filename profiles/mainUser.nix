@@ -7,10 +7,11 @@
 }:
 let
   shellAliases = {
+    "~~" = "~/Documents";
     nv = "nix run ~/Documents/NixOS/flakes/nixvim# -- $1";
     clip = "xclip -selection clipboard";
     nxfmt = "find $NIX_CONFIG_HOME -name '*.nix' -exec nixfmt {} \\;";
-    nxrb = "nxfmt; git add .; sudo nixos-rebuild $1 --flake $NIX_CONFIG_HOME#coeus --show-trace";
+    nxrb = "nxfmt; git add .; sudo nixos-rebuild $1 --flake $NIX_CONFIG_HOME#$(hostname) --show-trace";
     nxrbs = "nxrb switch";
     nxrbb = "nxrb build; rm -rf $NIX_CONFIG_HOME/result;";
     nxcommit = "nxfmt; git add $NIX_CONFIG_HOME; git commit $NIX_CONFIG_HOME -m \"$(nixos-rebuild list-generations | grep current)\";";
@@ -21,13 +22,10 @@ let
     nxbuild = "nix-build -E 'with import <nixpkgs> {}; callPackage '\"$1\"' {}' --show-trace";
 
     # TODO: Keep Empty. Temp aliases for currently common activities that shouldnt stay common
-    vmmount = "sudo mount -t virtiofs mount_coeus_nixos /mnt/coeus/nixos";
+
   };
 in
 {
-  imports = [
-    ../styles/catppuccin-mocha.nix
-  ];
 
   programs.git.enable = true;
   programs.firefox.enable = lib.mkForce false;

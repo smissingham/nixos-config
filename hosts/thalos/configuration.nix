@@ -1,4 +1,6 @@
 {
+  mainUser,
+  pkgs,
   ...
 }:
 {
@@ -8,19 +10,27 @@
   ];
 
   environment.variables = {
-    NIX_CONFIG_HOME = "/mnt/coeus/nixos";
+    NIX_CONFIG_HOME = "/home/smissingham/Documents/Nix";
   };
 
-  myModules = {
+  mySystemModules = {
+    wm.gnome-xserver.enable = true;
     access.sunshine.enable = true;
-    entertainment.gaming.enable = true;
-    wm.plasma6.enable = true;
+    coding.vscodium.enable = true;
   };
+
+  myHomeModules = {
+    browsers.floorp.enable = true;
+  };
+
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true; # enable copy and paste between host and guest
 
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
+  boot.supportedFilesystems = [ "virtiofs" ];
 
   networking.hostName = "thalos";
   time.timeZone = "America/Chicago";

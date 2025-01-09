@@ -1,39 +1,21 @@
 {
-  config,
-  lib,
   mainUser,
   pkgs,
-  system,
   ...
 }:
-let
-
-  # WIP: a function to auto-set a module's config indentation
-  # getModulePath = {}:(
-  #     let
-  #       moduleTopLevel = "myModules"; # top level config name to contain all modules, eg. `myModules`.wm.plasma6
-  #       moduleRootDir = "modules"; # directory where the modules nix configs are contained
-
-  #       modulePath = builtins.elemAt (builtins.split moduleRootDir (builtins.toString ./.)) 2;
-  #       modulePathList = builtins.filter (x: builtins.typeOf x == "string" && x != "") (
-  #         builtins.split "/" (modulePath)
-  #       );
-  #       modulePathDots = builtins.concatStringSep "." (moduleTopLevel ++ modulePathList);
-  #     in
-  #     # Return the final result
-  #     modulePathDots;
-  # );
-
-in
 {
 
   # TODO implement dynamic discovery of all imports in modules directory
   imports = [
-    ./access/sunshine.nix
-    ./entertainment/gaming.nix
-    ./virt/kvm.nix
-    ./virt/podman.nix
-    ./wm/plasma6.nix
+    ./home-manager/browsers/floorp.nix
+
+    ./system/coding/vscodium.nix
+    ./system/access/sunshine.nix
+    ./system/entertainment/gaming.nix
+    ./system/virt/kvm.nix
+    ./system/virt/podman.nix
+    ./system/wm/gnome-xserver.nix
+    ./system/wm/plasma6.nix
   ];
 
   #----- DEFAULTS TO APPLY ON ALL SYSTEMS -----#
@@ -70,13 +52,13 @@ in
     };
   };
 
+  # TODO extract to module
   services.fail2ban = {
     enable = true;
     maxretry = 5;
     ignoreIP = [
       # Whitelist
     ];
-
     bantime = "24h"; # Ban IPs for one day on the first ban
     bantime-increment = {
       enable = true; # Enable increment of bantime after each violation

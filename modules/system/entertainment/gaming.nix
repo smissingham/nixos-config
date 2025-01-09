@@ -6,7 +6,7 @@
 }:
 
 let
-  moduleSet = "myModules";
+  moduleSet = "mySystemModules";
   moduleCategory = "entertainment";
   moduleName = "gaming";
 

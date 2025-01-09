@@ -6,7 +6,7 @@
 }:
 
 let
-  moduleSet = "myModules";
+  moduleSet = "mySystemModules";
   moduleCategory = "access";
   moduleName = "sunshine";
 
@@ -15,9 +15,28 @@ in
 {
   options.${moduleSet}.${moduleCategory}.${moduleName} = with lib; {
     enable = mkEnableOption moduleName;
+    withMoonlight = mkOption {
+      type = types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
+
+    environment.systemPackages =
+      with pkgs;
+      lib.mkMerge [
+
+        # Always install packages
+        ([
+        ])
+
+        # Optional GUI Tools
+        (lib.mkIf cfg.withMoonlight [
+          moonlight-qt
+        ])
+      ];
+
     networking.firewall.allowedTCPPortRanges = [
       {
         from = 47984;

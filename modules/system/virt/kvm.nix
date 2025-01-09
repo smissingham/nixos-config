@@ -6,7 +6,7 @@
   ...
 }:
 let
-  moduleSet = "myModules";
+  moduleSet = "mySystemModules";
   moduleCategory = "virt";
   moduleName = "kvm";
 
@@ -15,10 +15,6 @@ in
 {
   options.${moduleSet}.${moduleCategory}.${moduleName} = with lib; {
     enable = mkEnableOption moduleName;
-    restartGuestsOnBoot = mkOption {
-      type = types.bool;
-      default = true;
-    };
     withCliTools = mkOption {
       type = types.bool;
       default = false;
@@ -26,6 +22,10 @@ in
     withGuiTools = mkOption {
       type = types.bool;
       default = false;
+    };
+    restartGuestsOnBoot = mkOption {
+      type = types.bool;
+      default = true;
     };
   };
 
@@ -43,9 +43,9 @@ in
         onBoot = if cfg.restartGuestsOnBoot then "start" else "ignore";
         qemu = {
           package = pkgs.qemu_kvm;
-          #runAsRoot = true;
+          runAsRoot = true;
           swtpm.enable = true;
-          vhostUserPackages = [ pkgs.virtiofsd ];
+          vhostUserPackages = [ pkgs.virtiofsd ]; # causing freezing/lagging issues?
           ovmf = {
             enable = true;
             packages = [
@@ -55,6 +55,14 @@ in
               }).fd
             ];
           };
+          verbatimConfig = ''
+            <video>
+              <model type='virtio' vram='16384' heads='1'/>
+            </video>
+            <graphics type='spice' port='-1' autoport='yes' listen='0.0.0.0'>
+              <listen type='address' address='0.0.0.0'/>
+            </graphics>
+          '';
         };
       };
     };
@@ -71,7 +79,7 @@ in
 
         # # Optional CLI Tools -- NOT YET NEEDED, LIBVIRT package ships the cli tools
         (lib.mkIf cfg.withCliTools [
-          libguestfs
+          #libguestfs
         ])
 
         # Optional GUI Tools

@@ -6,7 +6,7 @@
 }:
 
 let
-  moduleSet = "myModules";
+  moduleSet = "mySystemModules";
   moduleCategory = "access";
   moduleName = "tailscale";
 
