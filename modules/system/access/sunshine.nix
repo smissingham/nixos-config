@@ -29,6 +29,7 @@ in
 
         # Always install packages
         ([
+          sunshine
         ])
 
         # Optional GUI Tools

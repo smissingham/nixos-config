@@ -14,12 +14,46 @@
     NIX_CONFIG_HOME = "/home/smissingham/Documents/Nix";
   };
 
+  mySystemModules = {
+    # Window Manager
+    wm.plasma6.enable = true;
+    #wm.gnome-xserver.enable = true;
+    entertainment.gaming.enable = true;
+
+    access = {
+      sunshine.enable = true;
+      sunshine.withMoonlight = true;
+      #tailscale.enable = true;
+      #tailscale.authKey = secrets.tailscale.authkey;
+    };
+
+    virt = {
+      kvm = {
+        enable = true;
+        withCliTools = true;
+        withGuiTools = true;
+      };
+      podman = {
+        enable = true;
+        dockerCompat = true;
+        withCliTools = true;
+        withGuiTools = true;
+      };
+    };
+  };
+
+  myHomeModules = {
+    browsers.floorp.enable = true;
+  };
+
   environment.systemPackages = with pkgs; [
     # System Utilities
     v4l-utils
   ];
+
   home-manager.users.${mainUser.username}.home.packages = with pkgs; [
-    floorp
+    #floorp
+    firefox
 
     # Entertainment
     spotify
@@ -44,33 +78,6 @@
     gitkraken
     bruno
   ];
-
-  mySystemModules = {
-    # Window Manager
-    wm.plasma6.enable = true;
-    entertainment.gaming.enable = true;
-
-    access = {
-      sunshine.enable = true;
-      sunshine.withMoonlight = true;
-      #tailscale.enable = true;
-      #tailscale.authKey = secrets.tailscale.authkey;
-    };
-
-    virt = {
-      kvm = {
-        enable = true;
-        withCliTools = true;
-        withGuiTools = true;
-      };
-      podman = {
-        enable = true;
-        dockerCompat = true;
-        withCliTools = true;
-        withGuiTools = true;
-      };
-    };
-  };
 
   # Configure networking
   networking.hostName = "coeus";

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  ARRAY_UUID_NVME_R10 = "d5f1f76a:8ff02f7b:676bc080:44bf44b8";
+  ARRAY_UUID_NVME_R10 = "4d490828:49335c1f:f2730842:b4ff9746";
 in
 {
   imports = [
@@ -106,9 +106,10 @@ in
   boot.kernelModules = [ "kvm-intel" ];
   boot.kernelParams = [ "boot.shell_on_fail" ];
   boot.extraModulePackages = [ ];
-  networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  networking.useDHCP = lib.mkDefault true;
 
   # #### NVIDIA CONFIG ####
   hardware.graphics.enable = true; # Enable OpenGL

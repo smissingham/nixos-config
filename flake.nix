@@ -5,12 +5,17 @@
 
     # nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    #nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -37,7 +42,12 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      plasma-manager,
+      ...
+    }:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
@@ -85,11 +95,11 @@
               outputs
               overlays
               mainUser
+              plasma-manager
               ;
           };
         in
         {
-
           # My home desktop / server
           coeus = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";

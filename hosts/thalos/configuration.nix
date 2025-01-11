@@ -36,8 +36,10 @@
   time.timeZone = "America/Chicago";
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "smissingham";
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "smissingham";
+  };
 
   system.stateVersion = "24.11"; # Did you read the docs?
 }
