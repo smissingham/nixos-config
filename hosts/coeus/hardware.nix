@@ -116,6 +116,7 @@ in
   services.xserver.videoDrivers = [ "nvidia" ]; # Nvidia graphics driver
   hardware.nvidia-container-toolkit.enable = true; # Nvidia CDI support for docker/podman
   hardware.nvidia = {
+    nvidiaPersistenced = true;
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;
