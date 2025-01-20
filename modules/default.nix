@@ -11,6 +11,7 @@
 
     ./system/coding/vscodium.nix
     ./system/access/sunshine.nix
+    ./system/access/tailscale.nix
     ./system/entertainment/gaming.nix
     ./system/virt/kvm.nix
     ./system/virt/podman.nix
