@@ -1,8 +1,4 @@
-{
-  mainUser,
-  pkgs,
-  ...
-}:
+{ mainUser, pkgs, ... }:
 {
   imports = [
     ./hardware.nix
@@ -17,10 +13,6 @@
     wm.gnome-xserver.enable = true;
     access.sunshine.enable = true;
     coding.vscodium.enable = true;
-  };
-
-  myHomeModules = {
-    browsers.floorp.enable = true;
   };
 
   services.qemuGuest.enable = true;

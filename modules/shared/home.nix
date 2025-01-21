@@ -1,3 +1,4 @@
+# ----- HOME CONFIGURATION TO APPLY ON ALL (DARWIN + NIXOS) SYSTEMS -----#
 {
   config,
   lib,
@@ -6,59 +7,37 @@
   ...
 }:
 let
+  alacrittyColors = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "alacritty";
+    rev = "f6cb5a5c2b404cdaceaff193b9c52317f62c62f7";
+    hash = "sha256-H8bouVCS46h0DgQ+oYY8JitahQDj0V9p2cOoD4cQX+Q=";
+  };
   shellAliases = {
-    "~~" = "~/Documents";
-    nv = "nix run ~/Documents/NixOS/flakes/nixvim# -- $1";
     clip = "xclip -selection clipboard";
     nxfmt = "find $NIX_CONFIG_HOME -name '*.nix' -exec nixfmt {} \\;";
     nxrb = "nxfmt; git add .; sudo nixos-rebuild $1 --flake $NIX_CONFIG_HOME#$(hostname) --show-trace";
     nxrbs = "nxrb switch";
     nxrbb = "nxrb build; rm -rf $NIX_CONFIG_HOME/result;";
-    nxcommit = "nxfmt; git add $NIX_CONFIG_HOME; git commit $NIX_CONFIG_HOME -m \"$(nixos-rebuild list-generations | grep current)\";";
+    nxcommit = ''nxfmt; git add $NIX_CONFIG_HOME; git commit $NIX_CONFIG_HOME -m "$(nixos-rebuild list-generations | grep current)";'';
     nxgc = "nix-collect-garbage --delete-old";
     nxshell = "nix-shell -p $1";
 
     # TODO: Staging Area. Once happy this is mature, move it up among the rest
-    nxbuild = "nix-build -E 'with import <nixpkgs> {}; callPackage '\"$1\"' {}' --show-trace";
+    nxbuild = ''nix-build -E 'with import <nixpkgs> {}; callPackage '"$1"' {}' --show-trace'';
+    nv = "nix run $NIX_CONFIG_HOME/flakes/nixvim# -- $1";
+    dwrb = "nxfmt; git add .; darwin-rebuild $1 --flake $NIX_CONFIG_HOME#$(hostname) --show-trace"; # merge with nxrbs?
 
     # TODO: Keep Empty. Temp aliases for currently common activities that shouldnt stay common
 
   };
 in
 {
-
-  programs.git.enable = true;
-  programs.firefox.enable = lib.mkForce false;
-  programs.zsh.enable = true;
-  fonts.packages = [ pkgs.nerdfonts ];
-
   users.users.${mainUser.username} = {
-    isNormalUser = true;
-    description = mainUser.name;
-    shell = pkgs.zsh;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
+    name = mainUser.username;
+    home = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + mainUser.username;
   };
-
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            capslock = "esc";
-            #esc = "capslock";
-          };
-        };
-      };
-    };
-  };
-
   home-manager = {
-
     # Allow unfree packages
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -66,24 +45,18 @@ in
     users.${mainUser.username} =
       { pkgs, ... }:
       {
-        home.username = mainUser.username;
-        home.homeDirectory = "/home/" + mainUser.username;
-        home.packages = with pkgs; [
-          # TERMINAL
-          alacritty
-          # tmux # installed with home-manager
-          fzf
-          eza
-          zoxide
-          tldr
-          xclip
-        ];
+        home = {
+          username = mainUser.username;
+          homeDirectory = (if pkgs.stdenv.isDarwin then "/Users/" else "/home/") + mainUser.username;
+        };
 
-        xdg.enable = true;
-        xdg.userDirs = {
-          extraConfig = {
-            XDG_GAME_DIR = "${config.home.homeDirectory}/Media/Games";
-            XDG_GAME_SAVE_DIR = "${config.home.homeDirectory}/Media/GameSaves";
+        xdg = {
+          enable = true;
+          userDirs = {
+            extraConfig = {
+              XDG_GAME_DIR = "${config.home.homeDirectory}/Media/Games";
+              XDG_GAME_SAVE_DIR = "${config.home.homeDirectory}/Media/GameSaves";
+            };
           };
         };
 
@@ -98,24 +71,23 @@ in
           shellAliases = shellAliases;
         };
 
+        programs.direnv = {
+          enable = true;
+          enableZshIntegration = true;
+          nix-direnv.enable = true;
+        };
+
         programs.zsh = {
           enable = true;
           enableCompletion = true;
           shellAliases = shellAliases;
-
           autosuggestion.enable = true;
           syntaxHighlighting.enable = true;
+          initExtra = "source ~/.p10k.zsh";
 
           history = {
             size = 10000;
           };
-
-          oh-my-zsh = {
-            enable = true;
-            theme = "robbyrussell";
-          };
-
-          initExtra = "source ~/.p10k.zsh";
 
           plugins = [
             {
@@ -129,9 +101,14 @@ in
         programs.alacritty = {
           enable = true;
           settings = {
-            # general.import = [ pkgs.alacritty-theme.catppuccin_mocha ]; # implemented with stylix
+            general.import = [ "${alacrittyColors}/catppuccin-mocha.toml" ];
             env = {
               TERM = "xterm-256color";
+            };
+            window = {
+              opacity = lib.mkForce 0.975;
+              padding.x = 12;
+              padding.y = 12;
             };
           };
         };
@@ -140,7 +117,7 @@ in
           enable = true;
           clock24 = true;
           plugins = with pkgs; [
-            # tmuxPlugins.catppuccin # implemented with stylix
+            tmuxPlugins.catppuccin
             tmuxPlugins.better-mouse-mode
             tmuxPlugins.sensible
             tmuxPlugins.vim-tmux-navigator

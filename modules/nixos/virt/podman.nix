@@ -71,14 +71,10 @@ in
         ])
 
         # Optional GUI Tools
-        (lib.mkIf cfg.withGuiTools [
-          podman-desktop
-        ])
+        (lib.mkIf cfg.withGuiTools [ podman-desktop ])
 
         # Docker Compat Packages
-        (lib.mkIf cfg.dockerCompat [
-          podman-compose
-        ])
+        (lib.mkIf cfg.dockerCompat [ podman-compose ])
       ];
   };
 }

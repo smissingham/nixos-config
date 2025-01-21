@@ -9,9 +9,7 @@ let
   ARRAY_UUID_NVME_R10 = "4d490828:49335c1f:f2730842:b4ff9746";
 in
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -79,8 +77,7 @@ in
 
   # Ensure necessary kernel modules are available in initrd
   boot.initrd = {
-    kernelModules = [
-    ];
+    kernelModules = [ ];
     availableKernelModules = [
       "dm-mod"
       "xhci_pci"

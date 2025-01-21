@@ -82,9 +82,7 @@ in
         ])
 
         # Optional GUI Tools
-        (lib.mkIf cfg.withGuiTools [
-          virt-manager
-        ])
+        (lib.mkIf cfg.withGuiTools [ virt-manager ])
       ];
 
   };

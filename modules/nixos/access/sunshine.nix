@@ -28,14 +28,10 @@ in
       lib.mkMerge [
 
         # Always install packages
-        ([
-          sunshine
-        ])
+        ([ sunshine ])
 
         # Optional GUI Tools
-        (lib.mkIf cfg.withMoonlight [
-          moonlight-qt
-        ])
+        (lib.mkIf cfg.withMoonlight [ moonlight-qt ])
       ];
 
     networking.firewall.allowedTCPPortRanges = [

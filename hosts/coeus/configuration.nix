@@ -1,18 +1,10 @@
-{
-  pkgs,
-  mainUser,
-  ...
-}:
+{ pkgs, mainUser, ... }:
 {
   imports = [
     ../../styles/catppuccin-mocha.nix
     ./hardware.nix
     ./systemd.nix
   ];
-
-  environment.variables = {
-    NIX_CONFIG_HOME = "/home/smissingham/Documents/Nix";
-  };
 
   mySystemModules = {
     # Window Manager
@@ -42,14 +34,25 @@
     };
   };
 
-  myHomeModules = {
-    browsers.floorp.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     # System Utilities
     v4l-utils
   ];
+
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            capslock = "esc";
+            #esc = "capslock";
+          };
+        };
+      };
+    };
+  };
 
   home-manager.users.${mainUser.username}.home.packages = with pkgs; [
     #floorp

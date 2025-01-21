@@ -32,13 +32,9 @@ in
 
     home-manager = {
       users.${mainUser.username} = {
-        imports = [
-          (import "${plasma-manager}/modules")
-        ];
+        imports = [ (import "${plasma-manager}/modules") ];
 
-        home.packages = with pkgs; [
-          kdePackages.plasma-browser-integration
-        ];
+        home.packages = with pkgs; [ kdePackages.plasma-browser-integration ];
 
         programs.plasma = {
           enable = true;

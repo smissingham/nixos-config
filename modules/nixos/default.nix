@@ -1,5 +1,7 @@
+# ----- DEFAULTS TO APPLY ONLY ON NIXOS SYSTEMS -----#
 {
   mainUser,
+  lib,
   pkgs,
   ...
 }:
@@ -7,34 +9,21 @@
 
   # TODO implement dynamic discovery of all imports in modules directory
   imports = [
-    ./home-manager/browsers/floorp.nix
-
-    ./system/coding/vscodium.nix
-    ./system/access/sunshine.nix
-    ./system/access/tailscale.nix
-    ./system/entertainment/gaming.nix
-    ./system/virt/kvm.nix
-    ./system/virt/podman.nix
-    ./system/wm/gnome-xserver.nix
-    ./system/wm/plasma6.nix
+    ./coding/vscodium.nix
+    ./access/sunshine.nix
+    ./access/tailscale.nix
+    ./entertainment/gaming.nix
+    ./virt/kvm.nix
+    ./virt/podman.nix
+    ./wm/gnome-xserver.nix
+    ./wm/plasma6.nix
   ];
 
-  #----- DEFAULTS TO APPLY ON ALL SYSTEMS -----#
-  environment.systemPackages = with pkgs; [
-    # SYSTEM UTILITIES
-    #agenix
-    git
-    rclone
-    btop
-    dnsutils
-    pciutils
-    usbutils
-    nixfmt-rfc-style
+  programs.git.enable = true;
+  programs.firefox.enable = lib.mkForce false;
+  programs.zsh.enable = true;
 
-    # DEVTOOLS
-    nil # nix LSP
-    direnv # for vscode explorer
-  ];
+  environment.systemPackages = with pkgs; [ ];
 
   networking = {
     firewall.enable = true;
@@ -70,15 +59,28 @@
     };
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  users.users.${mainUser.username} = {
+    isNormalUser = true;
+    description = mainUser.name;
+    shell = pkgs.zsh;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+  };
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      filen-desktop = pkgs.callPackage ../packages/filen-desktop.nix { };
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            capslock = "esc";
+            #esc = "capslock";
+          };
+        };
+      };
     };
   };
 
