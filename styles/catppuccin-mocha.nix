@@ -18,12 +18,12 @@ in
 
     fonts = {
       monospace = {
-        name = "JetBrainsMono Nerd Font Mono";
+        name = "JetBrainsMono Nerd Font";
         package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
       };
       sansSerif = {
         name = "Ubuntu Nerd Font";
-        package = pkgs.nerdfonts;
+        package = pkgs.nerdfonts.override { fonts = [ "Ubuntu" ]; };
       };
       # serif = {
       #   name = "DejaVu Serif";
