@@ -7,18 +7,12 @@
 {
   #----- Fonts Available to System -----#
   fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Ubuntu"
-        "UbuntuMono"
-      ];
-    })
+    nerdfonts
+    font-awesome
   ];
   #----- Applications in User Space -----#
   home-manager.users.${mainUser.username}.home.packages = with pkgs; [
     alacritty
-    floorp
   ];
   #----- Applications in System Space -----#
   environment.systemPackages = with pkgs; [
