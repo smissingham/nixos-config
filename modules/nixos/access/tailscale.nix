@@ -63,7 +63,7 @@ in
         fi
 
         # otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up -authkey ${authKey}
+        ${tailscale}/bin/tailscale up -authkey ${cfg.authKey}
       '';
     };
   };

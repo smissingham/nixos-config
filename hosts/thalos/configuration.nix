@@ -1,8 +1,4 @@
-{
-  mainUser,
-  pkgs,
-  ...
-}:
+{ mainUser, pkgs, ... }:
 {
   imports = [
     ./hardware.nix
@@ -19,10 +15,6 @@
     coding.vscodium.enable = true;
   };
 
-  myHomeModules = {
-    browsers.floorp.enable = true;
-  };
-
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true; # enable copy and paste between host and guest
 
@@ -36,8 +28,10 @@
   time.timeZone = "America/Chicago";
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "smissingham";
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "smissingham";
+  };
 
   system.stateVersion = "24.11"; # Did you read the docs?
 }

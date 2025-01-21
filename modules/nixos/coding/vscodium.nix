@@ -24,9 +24,14 @@ in
         vscodeExtensions =
           with vscode-extensions;
           [
+            # UI
+            enkia.tokyo-night
+
+            # Languages
             bbenoist.nix
             ms-python.python
-            ms-azuretools.vscode-docker
+
+            # Tools & System
             ms-vscode-remote.remote-ssh
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [

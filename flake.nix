@@ -1,16 +1,26 @@
 {
-  description = "My Nix Config";
+  description = "Sean's Multi-System Flake";
 
   inputs = {
 
     # nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    #nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,12 +33,6 @@
       };
     };
 
-    # alacritty
-    alacritty-theme = {
-      url = "github:alexghr/alacritty-theme.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # stylix
     stylix = {
       url = "github:danth/stylix/release-24.11";
@@ -37,30 +41,32 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      home-manager,
+      plasma-manager,
+      ...
+    }:
     let
       inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" ];
 
-      overlays = [
-        inputs.agenix.overlays.default
-        inputs.alacritty-theme.overlays.default
+      overlays = [ inputs.agenix.overlays.default ];
+
+      sharedModules = [ ./modules/shared ];
+
+      darwinModules = sharedModules ++ [
+        ./modules/darwin
+        home-manager.darwinModules.home-manager
       ];
 
-      nixosModules = import ./modules/nixos;
-      homeManagerModules = (import ./modules/home-manager);
-      legacyPackages = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system overlays;
-          config = {
-            allowUnfree = true;
-            packageOverrides = pkgs: {
-              filen-desktop = pkgs.callPackage ./packages/filen-desktop.nix { };
-            };
-          };
-        }
-      );
+      nixosModules = sharedModules ++ [
+        ./modules/nixos
+        inputs.agenix.nixosModules.default
+        inputs.home-manager.nixosModules.default
+        inputs.stylix.nixosModules.stylix
+      ];
 
       # ----- MAIN USER SETTINGS ----- #
       mainUser = {
@@ -68,17 +74,13 @@
         name = "Sean Missingham";
         email = "sean@missingham.com";
       };
+
     in
     {
-      inherit legacyPackages nixosModules homeManagerModules;
 
-      nixosConfigurations =
-        let
-          defaultModules = [
-            inputs.home-manager.nixosModules.default
-            inputs.agenix.nixosModules.default
-            inputs.stylix.nixosModules.stylix
-          ];
+      darwinConfigurations = {
+        plutus = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
           specialArgs = {
             inherit
               inputs
@@ -87,41 +89,35 @@
               mainUser
               ;
           };
+          modules = darwinModules ++ [ ./hosts/plutus/configuration.nix ];
+        };
+      };
+
+      nixosConfigurations =
+        let
+          specialArgs = {
+            inherit
+              inputs
+              outputs
+              overlays
+              mainUser
+              plasma-manager
+              ;
+          };
         in
         {
-
           # My home desktop / server
           coeus = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             inherit specialArgs;
-            modules = defaultModules ++ [
-
-              # custom toggleable modules
-              ./modules
-
-              # system config base module
-              ./hosts/coeus/configuration.nix
-
-              # user profiles
-              ./profiles/mainUser.nix
-            ];
+            modules = nixosModules ++ [ ./hosts/coeus/configuration.nix ];
           };
 
           # kvm sandbox
           thalos = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             inherit specialArgs;
-            modules = defaultModules ++ [
-
-              # custom toggleable modules
-              ./modules
-
-              # system config base module
-              ./hosts/thalos/configuration.nix
-
-              # user profiles
-              ./profiles/mainUser.nix
-            ];
+            modules = sharedModules ++ nixosModules ++ [ ./hosts/thalos/configuration.nix ];
           };
 
         };

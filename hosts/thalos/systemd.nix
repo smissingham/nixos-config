@@ -1,6 +1,4 @@
-{
-  ...
-}:
+{ ... }:
 {
   #"mount -t virtiofs _home_smissingham_Documents /home/smissingham/Documents";
   systemd.mounts = [
