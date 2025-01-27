@@ -58,28 +58,17 @@
     #floorp
     firefox
 
-    # Entertainment
-    spotify
-
     # Work
     teams-for-linux
 
-    # Communication
-    telegram-desktop
-    discord
-
     # Office
     libreoffice
-    obsidian
     thunderbird
     filen-desktop
 
     # Dev Tools
     kdePackages.kate
     jetbrains-toolbox
-    vscode
-    gitkraken
-    bruno
   ];
 
   # Configure networking

@@ -2,7 +2,9 @@
 { pkgs, mainUser, ... }:
 {
   #----- Applications in User Space -----#
-  home-manager.users.${mainUser.username}.home.packages = with pkgs; [ raycast ];
+  home-manager.users.${mainUser.username}.home.packages = with pkgs; [
+    raycast
+  ];
   #----- Applications in System Space -----#
   environment.systemPackages = with pkgs; [
 
