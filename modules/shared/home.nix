@@ -109,7 +109,7 @@ in
             general.import = [ "${alacrittyColors}/catppuccin-mocha.toml" ];
             font = {
               size = 13; # 14 creates glitches on p10k prompt
-              normal.family = "MesloLGS Nerd Font"; # p10k recommends
+              normal.family = lib.mkForce "MesloLGS Nerd Font"; # p10k recommends
             };
             env = {
               TERM = "xterm-256color";

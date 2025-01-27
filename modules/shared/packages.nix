@@ -13,6 +13,17 @@
   #----- Applications in User Space -----#
   home-manager.users.${mainUser.username}.home.packages = with pkgs; [
     alacritty
+
+    # TODO find better solution to share across daily driver hosts
+    filen-desktop
+    vscode
+    spotify
+    telegram-desktop
+    obsidian
+    discord
+    bruno
+    gitkraken
+    bruno
   ];
   #----- Applications in System Space -----#
   environment.systemPackages = with pkgs; [
